@@ -7,7 +7,7 @@ import org.uma.jmetal.util.naming.DescribedEntity;
  *
  * @author Antonio J. Nebro <antonio@lcc.uma.es>
  */
-public interface Observable<D> extends DescribedEntity, Runnable {
+public interface Observable<D> extends DescribedEntity {
 	void register(Observer<D> observer) ;
 	void unregister(Observer<D> observer) ;
 

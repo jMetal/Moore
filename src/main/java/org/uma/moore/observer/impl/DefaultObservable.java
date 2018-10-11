@@ -2,7 +2,6 @@ package org.uma.moore.observer.impl;
 
 import java.util.HashSet;
 import java.util.Set;
-import org.uma.jmetal.util.JMetalLogger;
 import org.uma.moore.observer.Observable;
 import org.uma.moore.observer.Observer;
 
@@ -11,7 +10,7 @@ import org.uma.moore.observer.Observer;
  *
  * @author Antonio J. Nebro <antonio@lcc.uma.es>
  */
-public abstract class DefaultObservable<D> implements Observable<D> {
+public class DefaultObservable<D> implements Observable<D> {
 	private Set<Observer<D>> observers ;
 	private boolean dataHasChanged ;
 	private String name ;
@@ -69,7 +68,4 @@ public abstract class DefaultObservable<D> implements Observable<D> {
 	public synchronized String getDescription() {
 		return name;
 	}
-
-	@Override
-	public abstract void run() ;
 }
