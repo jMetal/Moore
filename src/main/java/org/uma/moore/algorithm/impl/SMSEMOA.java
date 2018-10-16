@@ -6,6 +6,7 @@ import org.uma.jmetal.operator.impl.crossover.SBXCrossover;
 import org.uma.jmetal.operator.impl.mutation.PolynomialMutation;
 import org.uma.jmetal.problem.DoubleProblem;
 import org.uma.jmetal.problem.multiobjective.zdt.ZDT1;
+import org.uma.jmetal.problem.multiobjective.zdt.ZDT4;
 import org.uma.jmetal.solution.DoubleSolution;
 import org.uma.jmetal.util.JMetalLogger;
 import org.uma.jmetal.util.comparator.DominanceComparator;
@@ -21,11 +22,11 @@ import org.uma.moore.component.evolutionaryalgorithm.variation.impl.CrossoverAnd
 
 public class SMSEMOA {
   public static void main(String[] args) {
-    DoubleProblem problem = new ZDT1();
+    DoubleProblem problem = new ZDT4();
     int populationSize = 100;
     int offspringPopulationSize = 1;
     int matingPoolSize = 2;
-    int totalNumberOfEvaluations = 2500000;
+    int totalNumberOfEvaluations = 25000;
 
     JMetalLogger.logger.setUseParentHandlers(false);
 

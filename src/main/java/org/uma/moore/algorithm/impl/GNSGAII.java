@@ -9,6 +9,7 @@ import org.uma.jmetal.operator.impl.mutation.PolynomialMutation;
 import org.uma.jmetal.problem.DoubleProblem;
 import org.uma.jmetal.problem.multiobjective.zdt.ZDT1;
 import org.uma.jmetal.solution.DoubleSolution;
+import org.uma.jmetal.util.JMetalLogger;
 import org.uma.jmetal.util.archive.impl.CrowdingDistanceArchive;
 import org.uma.jmetal.util.archive.impl.NonDominatedSolutionListArchive;
 import org.uma.jmetal.util.comparator.GDominanceComparator;
@@ -31,7 +32,7 @@ public class GNSGAII {
     int matingPoolSize = 100 ;
     int totalNumberOfEvaluations = 25000 ;
 
-    //JMetalLogger.logger.setUseParentHandlers(false);
+    JMetalLogger.logger.setUseParentHandlers(false);
 
     double crossoverProbability = 0.9 ;
     double crossoverDistributionIndex = 20.0 ;
