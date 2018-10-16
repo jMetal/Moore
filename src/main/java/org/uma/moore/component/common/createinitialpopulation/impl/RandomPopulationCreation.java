@@ -9,11 +9,8 @@ import org.uma.moore.util.DataBuffer;
 
 public class RandomPopulationCreation<S extends Solution<?>> extends CreateInitialPopulation<S> {
 
-  private DataBuffer<Boolean> applyHasBeenInvoked ;
-
   public RandomPopulationCreation(Problem<S> problem, int populationSize) {
     super(problem, populationSize) ;
-    applyHasBeenInvoked = new DataBuffer<>();
   }
 
   @Override
@@ -30,20 +27,11 @@ public class RandomPopulationCreation<S extends Solution<?>> extends CreateIniti
     initialPopulation.setAttribute("ALGORITHM_TERMINATED", false);
     initialPopulation.setAttribute("INITIAL_COMPUTING_TIME", initialComputingTime);
 
-    observable.setChanged() ;
-		observable.notifyObservers(initialPopulation);
+    getObservable().setChanged() ;
+    getObservable().notifyObservers(initialPopulation);
 
     try {
-      applyHasBeenInvoked.put(true);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-  }
-
-  @Override
-  public void run() {
-    try {
-      applyHasBeenInvoked.get();
+      buffer.put(true);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
