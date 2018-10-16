@@ -2,6 +2,7 @@ package org.uma.moore.component.common.evaluation.impl;
 
 import org.uma.jmetal.problem.Problem;
 import org.uma.jmetal.solution.Solution;
+import org.uma.jmetal.util.JMetalException;
 import org.uma.jmetal.util.JMetalLogger;
 import org.uma.moore.Population;
 import org.uma.moore.component.common.evaluation.Evaluation;
@@ -10,33 +11,27 @@ import org.uma.moore.util.DataBuffer;
 
 public class MultithreadedEvaluation<S extends Solution<?>> extends Evaluation<S> {
 
-  private Problem<S> problem;
-  private DataBuffer<Population<S>> buffer;
-
-  public MultithreadedEvaluation(Problem<S> problem) {
-    this.problem = problem;
-    buffer = new DataBuffer<>();
+  public MultithreadedEvaluation(Problem<S> problem, String populationIdentifier) {
+    super(problem, populationIdentifier);
   }
 
   @Override
-  public void apply(Problem<S> problem, Population<S> population) {
-    if (!(boolean)population.getAttribute("ALGORITHM_TERMINATED")) {
-
-      if (population.getAttribute("OFFSPRING_POPULATION") == null) {
-        population.
-            parallelStream().
-            forEach(solution -> problem.evaluate(solution));
-        population.setAttribute("EVALUATIONS",
-            (int) population.getAttribute("EVALUATIONS") + population.size());
-
+  public void apply(Population<S> population) {
+    if (!(boolean) population.getAttribute("ALGORITHM_TERMINATED")) {
+      Population<S> populationToEvaluate;
+      if (populationIdentifier.equals("CURRENT_POPULATION")) {
+        populationToEvaluate = population;
+      } else if (population.getAttribute(populationIdentifier) != null) {
+        populationToEvaluate = (Population<S>) population.getAttribute(populationIdentifier);
       } else {
-        Population<S> offspringPopulation = (Population<S>) population.getAttribute("OFFSPRING_POPULATION");
-        offspringPopulation.
-            stream().
-            forEach(solution -> problem.evaluate(solution));
-        population.setAttribute("EVALUATIONS",
-            (int) population.getAttribute("EVALUATIONS") + offspringPopulation.size());
+        throw new JMetalException("The population " + populationIdentifier + " does not exist");
       }
+
+      populationToEvaluate.
+          parallelStream().
+          forEach(solution -> problem.evaluate(solution));
+      population.setAttribute("EVALUATIONS",
+          (int) population.getAttribute("EVALUATIONS") + populationToEvaluate.size());
     }
     observable.setChanged();
     observable.notifyObservers(population);
@@ -61,7 +56,7 @@ public class MultithreadedEvaluation<S extends Solution<?>> extends Evaluation<S
     try {
       while (true) {
         Population<S> population = buffer.get();
-        apply(problem, population);
+        apply(population);
 
         if ((boolean)population.getAttribute("ALGORITHM_TERMINATED")) {
           break ;

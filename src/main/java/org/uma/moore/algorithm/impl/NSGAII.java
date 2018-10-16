@@ -48,8 +48,8 @@ public class NSGAII {
 
     EvolutionaryAlgorithm<DoubleSolution> algorithm = new EvolutionaryAlgorithm<>(
         new RandomPopulationCreation<>(problem, populationSize),
-        new SequentialEvaluation<>(problem),
-        new SequentialEvaluation<>(problem),
+        new SequentialEvaluation<>(problem, "CURRENT_POPULATION"),
+        new SequentialEvaluation<>(problem, "OFFSPRING_POPULATION"),
         new TerminationByEvaluations<>(maxNumberOfEvaluations),
         new BinaryTournamentSelection<>(matingPoolSize, new DominanceComparator<>()),
         new CrossoverAndMutationVariation<>(crossover, mutation, offspringPopulationSize),
@@ -60,14 +60,12 @@ public class NSGAII {
 
     // Examples of observers
 
-    /* Prints the number of evaluations */
     EvaluationObserver<DoubleSolution> evaluationObserver =
         new EvaluationObserver<>(maxNumberOfEvaluations, 100) ;
 
     algorithm.getTermination().getObservable().register(evaluationObserver);
     evaluationObserver.start();
 
-    /* Stores the evaluated solutions in bounded and unbounded archives */
     ExternalArchiveObserver<DoubleSolution> externalBoundedArchive;
     ExternalArchiveObserver<DoubleSolution> externalUnboundedArchive;
 
