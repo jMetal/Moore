@@ -8,9 +8,9 @@ import org.uma.moore.util.DataBuffer;
 
 public abstract class ObserverObservableComponent<S extends Solution<?>> extends
     ObserverComponent<S> {
-  private Observable<S> observable ;
+  private Observable<Population <S>> observable ;
 
-  public ObserverObservableComponent(Observable<S> observable) {
+  public ObserverObservableComponent(Observable<Population<S>> observable) {
     super(observable.getName()) ;
     this.observable = observable ;
   }
@@ -24,7 +24,7 @@ public abstract class ObserverObservableComponent<S extends Solution<?>> extends
 
   public abstract void onFinish(Population<S> population);
 
-  public Observable<S> getObservable() {
+  public Observable<Population<S>> getObservable() {
     return this.observable ;
   }
 
