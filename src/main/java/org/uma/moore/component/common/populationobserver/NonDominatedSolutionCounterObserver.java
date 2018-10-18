@@ -34,7 +34,7 @@ public class NonDominatedSolutionCounterObserver<S extends Solution<?>> extends
   }
 
   @Override
-  public synchronized String getDescription() {
+  public String getDescription() {
     return "NonDominatedSolutionCounterObserver observer object";
   }
 }

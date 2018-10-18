@@ -6,6 +6,7 @@ import org.uma.jmetal.operator.impl.crossover.SBXCrossover;
 import org.uma.jmetal.operator.impl.mutation.PolynomialMutation;
 import org.uma.jmetal.problem.DoubleProblem;
 import org.uma.jmetal.problem.multiobjective.zdt.ZDT1;
+import org.uma.jmetal.problem.multiobjective.zdt.ZDT4;
 import org.uma.jmetal.solution.DoubleSolution;
 import org.uma.jmetal.util.JMetalLogger;
 import org.uma.jmetal.util.archive.impl.CrowdingDistanceArchive;
@@ -16,6 +17,7 @@ import org.uma.moore.component.common.createinitialpopulation.impl.RandomPopulat
 import org.uma.moore.component.common.evaluation.impl.SequentialEvaluation;
 import org.uma.moore.component.common.populationobserver.EvaluationObserver;
 import org.uma.moore.component.common.populationobserver.ExternalArchiveObserver;
+import org.uma.moore.component.common.populationobserver.NonDominatedSolutionCounterObserver;
 import org.uma.moore.component.common.populationobserver.PopulationToFilesWriterObserver;
 import org.uma.moore.component.common.populationobserver.RealTimeChartObserver;
 import org.uma.moore.component.common.termination.impl.TerminationByEvaluations;
@@ -25,7 +27,7 @@ import org.uma.moore.component.evolutionaryalgorithm.variation.impl.CrossoverAnd
 
 public class NSGAII {
   public static void main (String[] args) {
-    DoubleProblem problem = new ZDT1() ;
+    DoubleProblem problem = new ZDT4() ;
     int populationSize = 100 ;
     int offspringPopulationSize = 100 ;
     int matingPoolSize = 100 ;
@@ -59,12 +61,18 @@ public class NSGAII {
     populationObserver.start();
 
     // Examples of observers
-
+/*
     EvaluationObserver<DoubleSolution> evaluationObserver =
         new EvaluationObserver<>(maxNumberOfEvaluations, 100) ;
 
     algorithm.getTermination().getObservable().register(evaluationObserver);
     evaluationObserver.start();
+*/
+    NonDominatedSolutionCounterObserver<DoubleSolution> nonDominatedSolutionCounterObserver =
+        new NonDominatedSolutionCounterObserver<>() ;
+
+    algorithm.getTermination().getObservable().register(nonDominatedSolutionCounterObserver);
+    nonDominatedSolutionCounterObserver.start();
 
     ExternalArchiveObserver<DoubleSolution> externalBoundedArchive;
     ExternalArchiveObserver<DoubleSolution> externalUnboundedArchive;
