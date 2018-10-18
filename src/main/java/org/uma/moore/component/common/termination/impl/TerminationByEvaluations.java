@@ -27,8 +27,6 @@ public class TerminationByEvaluations<S extends Solution<?>> extends Termination
       population.setAttribute("END_COMPUTING_TIME", finalComputingTime);
       System.out.println("COMPUTING time: " +
           (finalComputingTime - (long) population.getAttribute("INITIAL_COMPUTING_TIME")));
-    } else {
-      population.setAttribute("ALGORITHM_TERMINATED", false);
     }
 
     getObservable().setChanged();

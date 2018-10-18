@@ -28,8 +28,6 @@ public class TerminationByTime<S extends Solution<?>> extends Termination<S> {
       population.setAttribute("END_COMPUTING_TIME", finalComputingTime);
       System.out.println("COMPUTING time: " +
           (finalComputingTime - (long) population.getAttribute("INITIAL_COMPUTING_TIME")));
-    } else {
-      population.setAttribute("ALGORITHM_TERMINATED", false);
     }
 
     getObservable().setChanged();
