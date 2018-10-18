@@ -16,20 +16,19 @@ public class CrossoverAndMutationVariation<S extends Solution<?>> extends Variat
   private CrossoverOperator<S> crossover ;
   private MutationOperator<S> mutation ;
   private int offspringPopulationSize;
-  private DataBuffer<Population<S>> buffer ;
 
   public CrossoverAndMutationVariation(
           CrossoverOperator<S> crossover,
           MutationOperator<S> mutation,
           int offspringPopulationSize) {
+    super("Crossover and mutation variation") ;
     this.crossover = crossover ;
     this.mutation = mutation ;
     this.offspringPopulationSize = offspringPopulationSize;
-    buffer = new DataBuffer<>() ;
   }
   
   @Override
-  public void apply(Population<S> population) {
+  public void onNext(Population<S> population) {
     if (!(boolean)population.getAttribute("ALGORITHM_TERMINATED")) {
       int numberOfParents = crossover.getNumberOfRequiredParents();
 
@@ -57,18 +56,10 @@ public class CrossoverAndMutationVariation<S extends Solution<?>> extends Variat
       population.setAttribute("MATING_POOL", null);
       population.setAttribute("OFFSPRING_POPULATION", new Population<>(offspringList));
     }
-    observable.setChanged() ;
-    observable.notifyObservers(population);
+    getObservable().setChanged() ;
+    getObservable().notifyObservers(population);
   }
 
-  @Override
-  public synchronized void update(Observable<Population<S>> observable, Population<S> population) {
-    try {
-      buffer.put(new Population<>(population));
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-  }
 
   private void checkNumberOfParents(List<S> population, int numberOfParentsForCrossover) {
     if ((population.size() % numberOfParentsForCrossover) != 0) {
@@ -79,24 +70,11 @@ public class CrossoverAndMutationVariation<S extends Solution<?>> extends Variat
   }
 
   @Override
-  public String getDescription() {
-    return "Crossover and mutation variator object";
+  public void onFinish(Population<S> population) {
   }
 
   @Override
-  public void run() {
-    try {
-      while (true) {
-        Population<S> population = buffer.get();
-        JMetalLogger.logger.info("VARIATION: GET READY");
-        apply(population);
-
-        if ((boolean)population.getAttribute("ALGORITHM_TERMINATED")) {
-          break ;
-        }
-      }
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
+  public String getDescription() {
+    return "Crossover and mutation variator object";
   }
 }
