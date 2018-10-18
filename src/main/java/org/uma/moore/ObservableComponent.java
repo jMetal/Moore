@@ -8,6 +8,11 @@ public abstract class ObservableComponent<S> extends Thread {
   private Observable<S> observable ;
   protected DataBuffer<Boolean> buffer ;
 
+  public ObservableComponent(Observable<S> observable) {
+    this.observable = observable ;
+    buffer = new DataBuffer<>() ;
+  }
+
   public ObservableComponent(String componentName) {
     observable = new DefaultObservable<>(componentName) ;
     buffer = new DataBuffer<>();
