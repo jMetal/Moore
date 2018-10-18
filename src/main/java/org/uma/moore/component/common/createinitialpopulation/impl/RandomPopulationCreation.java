@@ -2,10 +2,8 @@ package org.uma.moore.component.common.createinitialpopulation.impl;
 
 import org.uma.jmetal.problem.Problem;
 import org.uma.jmetal.solution.Solution;
-import org.uma.jmetal.util.JMetalLogger;
 import org.uma.moore.Population;
 import org.uma.moore.component.common.createinitialpopulation.CreateInitialPopulation;
-import org.uma.moore.util.DataBuffer;
 
 public class RandomPopulationCreation<S extends Solution<?>> extends CreateInitialPopulation<S> {
 

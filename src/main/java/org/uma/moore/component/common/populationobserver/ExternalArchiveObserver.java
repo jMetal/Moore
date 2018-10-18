@@ -7,9 +7,6 @@ import org.uma.jmetal.util.fileoutput.SolutionListOutput;
 import org.uma.jmetal.util.fileoutput.impl.DefaultFileOutputContext;
 import org.uma.moore.ObserverComponent;
 import org.uma.moore.Population;
-import org.uma.moore.observer.Observable;
-import org.uma.moore.observer.Observer;
-import org.uma.moore.util.DataBuffer;
 
 public class ExternalArchiveObserver<S extends Solution<?>>
     extends ObserverComponent<S> {

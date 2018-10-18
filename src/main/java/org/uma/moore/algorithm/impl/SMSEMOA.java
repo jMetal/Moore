@@ -5,7 +5,6 @@ import org.uma.jmetal.operator.MutationOperator;
 import org.uma.jmetal.operator.impl.crossover.SBXCrossover;
 import org.uma.jmetal.operator.impl.mutation.PolynomialMutation;
 import org.uma.jmetal.problem.DoubleProblem;
-import org.uma.jmetal.problem.multiobjective.zdt.ZDT1;
 import org.uma.jmetal.problem.multiobjective.zdt.ZDT4;
 import org.uma.jmetal.solution.DoubleSolution;
 import org.uma.jmetal.util.JMetalLogger;

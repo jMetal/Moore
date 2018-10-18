@@ -3,7 +3,6 @@ package org.uma.moore;
 import org.uma.jmetal.solution.Solution;
 import org.uma.moore.observer.Observable;
 import org.uma.moore.observer.Observer;
-import org.uma.moore.observer.impl.DefaultObservable;
 import org.uma.moore.util.DataBuffer;
 
 public abstract class ObserverComponent<S extends Solution<?>> extends Thread implements

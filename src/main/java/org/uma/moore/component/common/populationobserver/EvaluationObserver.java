@@ -4,9 +4,6 @@ import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.JMetalLogger;
 import org.uma.moore.ObserverComponent;
 import org.uma.moore.Population;
-import org.uma.moore.observer.Observable;
-import org.uma.moore.observer.Observer;
-import org.uma.moore.util.DataBuffer;
 
 public class EvaluationObserver<S extends Solution<?>> extends ObserverComponent<S> {
   private int maxEvaluations ;

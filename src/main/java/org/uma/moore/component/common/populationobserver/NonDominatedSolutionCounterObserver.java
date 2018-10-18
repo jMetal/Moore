@@ -1,15 +1,11 @@
 package org.uma.moore.component.common.populationobserver;
 
 import org.uma.jmetal.solution.Solution;
-import org.uma.jmetal.util.JMetalLogger;
 import org.uma.jmetal.util.comparator.DominanceComparator;
 import org.uma.jmetal.util.solutionattribute.Ranking;
 import org.uma.jmetal.util.solutionattribute.impl.DominanceRanking;
 import org.uma.moore.ObserverComponent;
 import org.uma.moore.Population;
-import org.uma.moore.observer.Observable;
-import org.uma.moore.observer.Observer;
-import org.uma.moore.util.DataBuffer;
 
 public class NonDominatedSolutionCounterObserver<S extends Solution<?>> extends
     ObserverComponent<S> {

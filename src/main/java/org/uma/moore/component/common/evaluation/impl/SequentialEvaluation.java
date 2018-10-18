@@ -3,11 +3,9 @@ package org.uma.moore.component.common.evaluation.impl;
 import org.uma.jmetal.problem.Problem;
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.JMetalException;
-import org.uma.jmetal.util.JMetalLogger;
 import org.uma.moore.Population;
 import org.uma.moore.component.common.evaluation.Evaluation;
 import org.uma.moore.observer.Observable;
-import org.uma.moore.util.DataBuffer;
 
 public class SequentialEvaluation<S extends Solution<?>> extends Evaluation<S> {
 
