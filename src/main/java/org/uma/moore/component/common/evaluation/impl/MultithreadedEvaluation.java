@@ -10,11 +10,11 @@ import org.uma.moore.observer.Observable;
 public class MultithreadedEvaluation<S extends Solution<?>> extends Evaluation<S> {
 
   public MultithreadedEvaluation(Problem<S> problem, String populationIdentifier) {
-    super(problem, populationIdentifier);
+    super("Multithreaded evaluation", problem, populationIdentifier);
   }
 
   @Override
-  public void apply(Population<S> population) {
+  public void onNext(Population<S> population) {
     if (!(boolean) population.getAttribute("ALGORITHM_TERMINATED")) {
       Population<S> populationToEvaluate;
       if (populationIdentifier.equals("CURRENT_POPULATION")) {
@@ -31,37 +31,16 @@ public class MultithreadedEvaluation<S extends Solution<?>> extends Evaluation<S
       population.setAttribute("EVALUATIONS",
           (int) population.getAttribute("EVALUATIONS") + populationToEvaluate.size());
     }
-    observable.setChanged();
-    observable.notifyObservers(population);
+    getObservable().setChanged();
+    getObservable().notifyObservers(population);
   }
 
   @Override
-  public synchronized void update(Observable<Population<S>> observable, Population<S> population) {
-    try {
-      buffer.put(new Population<>(population));
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
+  public void onFinish(Population<S> population) {
   }
 
   @Override
   public String getDescription() {
     return "Multithreaded evaluation object";
-  }
-
-  @Override
-  public void run() {
-    try {
-      while (true) {
-        Population<S> population = buffer.get();
-        apply(population);
-
-        if ((boolean)population.getAttribute("ALGORITHM_TERMINATED")) {
-          break ;
-        }
-      }
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
   }
 }

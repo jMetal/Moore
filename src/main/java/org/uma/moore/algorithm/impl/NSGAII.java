@@ -67,8 +67,7 @@ public class NSGAII {
 
     algorithm.getTermination().getObservable().register(evaluationObserver);
     evaluationObserver.start();
-
-/*
+    /*
     NonDominatedSolutionCounterObserver<DoubleSolution> nonDominatedSolutionCounterObserver =
         new NonDominatedSolutionCounterObserver<>() ;
 
@@ -87,12 +86,11 @@ public class NSGAII {
     algorithm.getOffspringPopulationEvaluation().getObservable().register(externalUnboundedArchive);
     externalBoundedArchive.start();
     externalUnboundedArchive.start();
-
+*/
     RealTimeChartObserver<DoubleSolution> realTimeChartObserver
             = new RealTimeChartObserver<>("NSGA-II", "/paretoFronts/ZDT1.pf") ;
     algorithm.getTermination().getObservable().register(realTimeChartObserver);
     realTimeChartObserver.start();
-*/
     algorithm.run();
   }
 }
