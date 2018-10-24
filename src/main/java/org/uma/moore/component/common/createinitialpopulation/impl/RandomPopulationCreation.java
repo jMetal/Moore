@@ -27,11 +27,5 @@ public class RandomPopulationCreation<S extends Solution<?>> extends CreateIniti
 
     getObservable().setChanged() ;
     getObservable().notifyObservers(initialPopulation);
-
-    try {
-      buffer.put(true);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
   }
 }

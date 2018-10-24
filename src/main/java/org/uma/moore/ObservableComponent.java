@@ -6,16 +6,13 @@ import org.uma.moore.util.DataBuffer;
 
 public abstract class ObservableComponent<S> extends Thread {
   private Observable<S> observable ;
-  protected DataBuffer<Boolean> buffer ;
 
   public ObservableComponent(Observable<S> observable) {
     this.observable = observable ;
-    buffer = new DataBuffer<>() ;
   }
 
   public ObservableComponent(String componentName) {
     observable = new DefaultObservable<>(componentName) ;
-    buffer = new DataBuffer<>();
   }
 
   public Observable<S> getObservable() {
@@ -26,10 +23,6 @@ public abstract class ObservableComponent<S> extends Thread {
 
   @Override
   public void run() {
-    try {
-      buffer.get();
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
+    apply();
   }
 }

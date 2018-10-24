@@ -52,8 +52,6 @@ public class EvolutionaryAlgorithm<S extends Solution<?>> {
     variation.start();
     offspringPopulationEvaluation.start();
     replacement.start();
-
-    createInitialPopulation.apply();
   }
 
   public Evaluation<S> getInitialPopulationEvaluation() {
