@@ -4,8 +4,6 @@ import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.JMetalLogger;
 import org.uma.moore.Population;
 import org.uma.moore.component.common.termination.Termination;
-import org.uma.moore.observer.Observable;
-import org.uma.moore.util.DataBuffer;
 
 public class TerminationByTime<S extends Solution<?>> extends Termination<S> {
   private long millisecondsToStop ;

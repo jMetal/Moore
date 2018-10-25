@@ -2,7 +2,6 @@ package org.uma.moore;
 
 import org.uma.moore.observer.Observable;
 import org.uma.moore.observer.impl.DefaultObservable;
-import org.uma.moore.util.DataBuffer;
 
 public abstract class ObservableComponent<S> extends Thread {
   private Observable<S> observable ;

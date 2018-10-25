@@ -5,7 +5,6 @@ import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.comparator.DominanceComparator;
 import org.uma.moore.Population;
 import org.uma.moore.component.evolutionaryalgorithm.selection.Selection;
-import org.uma.moore.observer.Observable;
 import org.uma.moore.util.DataBuffer;
 
 /**

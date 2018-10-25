@@ -6,11 +6,8 @@ import org.uma.jmetal.operator.CrossoverOperator;
 import org.uma.jmetal.operator.MutationOperator;
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.JMetalException;
-import org.uma.jmetal.util.JMetalLogger;
 import org.uma.moore.Population;
 import org.uma.moore.component.evolutionaryalgorithm.variation.Variation;
-import org.uma.moore.observer.Observable;
-import org.uma.moore.util.DataBuffer;
 
 public class CrossoverAndMutationVariation<S extends Solution<?>> extends Variation<S> {
   private CrossoverOperator<S> crossover ;

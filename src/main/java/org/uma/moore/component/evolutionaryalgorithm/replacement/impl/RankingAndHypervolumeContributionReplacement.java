@@ -7,14 +7,11 @@ import java.util.List;
 import org.uma.jmetal.qualityindicator.impl.Hypervolume;
 import org.uma.jmetal.qualityindicator.impl.hypervolume.PISAHypervolume;
 import org.uma.jmetal.solution.Solution;
-import org.uma.jmetal.util.JMetalLogger;
 import org.uma.jmetal.util.comparator.DominanceComparator;
 import org.uma.jmetal.util.solutionattribute.Ranking;
 import org.uma.jmetal.util.solutionattribute.impl.DominanceRanking;
 import org.uma.moore.Population;
 import org.uma.moore.component.evolutionaryalgorithm.replacement.Replacement;
-import org.uma.moore.observer.Observable;
-import org.uma.moore.util.DataBuffer;
 
 public class RankingAndHypervolumeContributionReplacement<S extends Solution<?>> extends
     Replacement<S> {
