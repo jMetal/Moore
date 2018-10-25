@@ -13,7 +13,6 @@ import org.uma.moore.observer.Observable;
 import org.uma.moore.util.DataBuffer;
 
 public class RankingAndCrowdingReplacement<S extends Solution<?>> extends Replacement<S> {
-  private DataBuffer<Population<S>> buffer ;
 
   private Comparator<S> dominanceComparator ;
 
@@ -21,7 +20,7 @@ public class RankingAndCrowdingReplacement<S extends Solution<?>> extends Replac
    * Constructor
    */
   public RankingAndCrowdingReplacement(Comparator<S> dominanceComparator) {
-    buffer = new DataBuffer<>() ;
+    super("Ranking and crowding replacement") ;
     this.dominanceComparator = dominanceComparator ;
   }
 
@@ -33,7 +32,7 @@ public class RankingAndCrowdingReplacement<S extends Solution<?>> extends Replac
   }
 
   @Override
-  public void apply(Population<S> population) {
+  public void onNext(Population<S> population) {
     if (!(boolean)population.getAttribute("ALGORITHM_TERMINATED")) {
 
       int populationSize = population.size();
@@ -51,20 +50,11 @@ public class RankingAndCrowdingReplacement<S extends Solution<?>> extends Replac
       population.setAttribute("OFFSPRING_POPULATION", null);
       newPopulation.setAttributes(population.getAttributes());
 
-      observable.setChanged();
-      observable.notifyObservers(newPopulation);
+      getObservable().setChanged();
+      getObservable().notifyObservers(newPopulation);
     } else {
-      observable.setChanged();
-      observable.notifyObservers(population);
-    }
-  }
-
-  @Override
-  public synchronized  void update(Observable<Population<S>> observable, Population<S> population) {
-    try {
-      buffer.put(new Population<>(population));
-    } catch (InterruptedException e) {
-      e.printStackTrace();
+      getObservable().setChanged();
+      getObservable().notifyObservers(population);
     }
   }
 
@@ -74,18 +64,7 @@ public class RankingAndCrowdingReplacement<S extends Solution<?>> extends Replac
   }
 
   @Override
-  public void run() {
-    try {
-      while (true) {
-        Population<S> population = buffer.get();
-        apply(population);
+  public void onFinish(Population<S> population) {
 
-        if ((boolean)population.getAttribute("ALGORITHM_TERMINATED")) {
-          break ;
-        }
-      }
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
   }
 }

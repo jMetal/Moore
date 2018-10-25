@@ -23,6 +23,7 @@ public class BinaryTournamentSelection<S extends Solution<?>> extends Selection<
   private int matingPoolSize;
 
   public BinaryTournamentSelection(int offspringPopulationSize, Comparator<S> comparator ) {
+    super("Binary tournament selection") ;
     this.binaryTournamentSelection =
         new org.uma.jmetal.operator.impl.selection.BinaryTournamentSelection<>(comparator) ;
     buffer = new DataBuffer<>() ;
@@ -34,7 +35,7 @@ public class BinaryTournamentSelection<S extends Solution<?>> extends Selection<
   }
 
   @Override
-  public void apply(Population<S> population) {
+  public void onNext(Population<S> population) {
     if (!(boolean)population.getAttribute("ALGORITHM_TERMINATED")) {
       Population<S> newPopulation = new Population<>(matingPoolSize);
       while (newPopulation.size() < matingPoolSize) {
@@ -44,37 +45,17 @@ public class BinaryTournamentSelection<S extends Solution<?>> extends Selection<
       population.setAttribute("MATING_POOL", newPopulation);
     }
 
-    observable.setChanged();
-    observable.notifyObservers(population);
+    getObservable().setChanged();
+    getObservable().notifyObservers(population);
   }
 
   @Override
-  public synchronized void update(Observable<Population<S>> observable, Population<S> population) {
-    try {
-      buffer.put(new Population<>(population));
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
+  public void onFinish(Population<S> population) {
+
   }
 
   @Override
   public String getDescription() {
     return "Binary tournament selection object";
-  }
-
-  @Override
-  public void run() {
-    try {
-      while (true) {
-        Population<S> population = buffer.get();
-        apply(population);
-
-        if ((boolean)population.getAttribute("ALGORITHM_TERMINATED")) {
-          break ;
-        }
-      }
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
   }
 }

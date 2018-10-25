@@ -18,7 +18,6 @@ import org.uma.moore.util.DataBuffer;
 
 public class RankingAndHypervolumeContributionReplacement<S extends Solution<?>> extends
     Replacement<S> {
-  private DataBuffer<Population<S>> buffer ;
 
   private Comparator<S> dominanceComparator ;
   private Hypervolume<S> hypervolume;
@@ -27,8 +26,8 @@ public class RankingAndHypervolumeContributionReplacement<S extends Solution<?>>
    * Constructor
    */
   public RankingAndHypervolumeContributionReplacement(Comparator<S> dominanceComparator) {
-    buffer = new DataBuffer<>() ;
-    this.dominanceComparator = dominanceComparator ;
+    super("Ranking and hypervolume contribution replacement") ;
+
     hypervolume = new PISAHypervolume<>() ;
   }
 
@@ -40,7 +39,7 @@ public class RankingAndHypervolumeContributionReplacement<S extends Solution<?>>
   }
 
   @Override
-  public void apply(Population<S> population) {
+  public void onNext(Population<S> population) {
     if (!(boolean)population.getAttribute("ALGORITHM_TERMINATED")) {
 
       List<S> jointPopulation = new ArrayList<>();
@@ -72,47 +71,20 @@ public class RankingAndHypervolumeContributionReplacement<S extends Solution<?>>
       population.setAttribute("OFFSPRING_POPULATION", null);
       newPopulation.setAttributes(population.getAttributes());
 
-      observable.setChanged();
-      observable.notifyObservers(newPopulation);
+      getObservable().setChanged();
+      getObservable().notifyObservers(newPopulation);
     } else {
-      observable.setChanged();
-      observable.notifyObservers(population);
+      getObservable().setChanged();
+      getObservable().notifyObservers(population);
     }
   }
 
   @Override
-  public synchronized  void update(Observable<Population<S>> observable, Population<S> population) {
-    JMetalLogger.logger.info("RankingAndCrowdingReplacement update invoked by " + observable.getName());
-    try {
-      buffer.put(new Population<>(population));
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-  }
+  public void onFinish(Population<S> population) {
 
+  }
   @Override
   public String getDescription() {
     return null;
-  }
-
-  @Override
-  public void run() {
-    JMetalLogger.logger.info("RANKING_AND_CROWDING_REPLACEMENT: RUN");
-
-    try {
-      while (true) {
-        Population<S> population = buffer.get();
-        JMetalLogger.logger.info("RANKING_AND_CROWDING_REPLACEMENT: GET READY");
-        apply(population);
-
-        if ((boolean)population.getAttribute("ALGORITHM_TERMINATED")) {
-          break ;
-        }
-      }
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-
-    JMetalLogger.logger.info("RANKING_AND_CROWDING_REPLACEMENT: END RUN");
   }
 }
