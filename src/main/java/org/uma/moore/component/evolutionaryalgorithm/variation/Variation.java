@@ -4,7 +4,7 @@ import org.uma.jmetal.solution.Solution;
 import org.uma.moore.ObserverObservableComponent;
 
 public abstract class Variation<S extends Solution<?>>
-    extends ObserverObservableComponent<S> {
+    extends ObserverObservableComponent {
 
   public Variation(String componentName) {
     super(componentName) ;

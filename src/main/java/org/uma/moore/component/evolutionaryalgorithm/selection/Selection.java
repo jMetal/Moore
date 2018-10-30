@@ -4,7 +4,7 @@ import org.uma.jmetal.solution.Solution;
 import org.uma.moore.ObserverObservableComponent;
 
 public abstract class Selection<S extends Solution<?>>
-    extends ObserverObservableComponent<S> {
+    extends ObserverObservableComponent {
 
   public Selection(String componentName) {
     super(componentName) ;

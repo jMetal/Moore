@@ -2,10 +2,11 @@ package org.uma.moore.component.common.populationobserver;
 
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.JMetalLogger;
+import org.uma.moore.Message;
 import org.uma.moore.ObserverComponent;
 import org.uma.moore.Population;
 
-public class EvaluationObserver<S extends Solution<?>> extends ObserverComponent<S> {
+public class EvaluationObserver<S extends Solution<?>> extends ObserverComponent {
   private int maxEvaluations ;
   private int frequency ;
 
@@ -16,16 +17,16 @@ public class EvaluationObserver<S extends Solution<?>> extends ObserverComponent
   }
 
   @Override
-  public void onNext(Population<S> population) {
-    int evaluations = (int)population.getAttribute("EVALUATIONS") ;
+  public void onNext(Message message) {
+    int evaluations = (int)message.getAttribute("EVALUATIONS") ;
     if (evaluations % frequency == 0) {
-      System.out.println("Evaluations: " + (int) population.getAttribute("EVALUATIONS") + " of "
+      System.out.println("Evaluations: " + message.getAttribute("EVALUATIONS") + " of "
           + maxEvaluations);
     }
   }
 
   @Override
-  public void onFinish(Population<S> population) {
+  public void onFinish(Message message) {
     JMetalLogger.logger.info("Evaluation observed terminated");
   }
 

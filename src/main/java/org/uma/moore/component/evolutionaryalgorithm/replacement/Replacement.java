@@ -4,7 +4,7 @@ import org.uma.jmetal.solution.Solution;
 import org.uma.moore.ObserverObservableComponent;
 
 public abstract class Replacement<S extends Solution<?>>
-    extends ObserverObservableComponent<S> {
+    extends ObserverObservableComponent {
 
   public Replacement(String componentName) {
     super(componentName) ;

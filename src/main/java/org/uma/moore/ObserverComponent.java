@@ -6,24 +6,24 @@ import org.uma.moore.observer.Observer;
 import org.uma.moore.util.DataBuffer;
 
 public abstract class ObserverComponent<S extends Solution<?>> extends Thread implements
-    Observer<Population<S>> {
+    Observer {
 
-  protected DataBuffer<Population<S>> buffer;
+  protected DataBuffer<Message> buffer;
   public String componentName;
 
   public ObserverComponent(String componentName) {
     this.componentName = componentName;
-    buffer = new DataBuffer<Population<S>>();
+    buffer = new DataBuffer<Message>();
   }
 
-  public abstract void onNext(Population<S> population) ;
+  public abstract void onNext(Message message) ;
 
-  public abstract void onFinish(Population<S> population);
+  public abstract void onFinish(Message message);
 
   @Override
-  public void update(Observable<Population<S>> observable, Population<S> population) {
+  public void update(Observable observable, Message message) {
     try {
-      buffer.put(new Population<>(population));
+      buffer.put(new Message(message));
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
@@ -33,20 +33,19 @@ public abstract class ObserverComponent<S extends Solution<?>> extends Thread im
   public synchronized void run() {
     boolean finishCondition = false;
 
-    Population<S> population = null;
-
+    Message message = null ;
     while (!finishCondition) {
       try {
-        population = buffer.get();
+        message = buffer.get();
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
 
-      if ((boolean) population.getAttribute("ALGORITHM_TERMINATED")) {
-        this.onFinish(population);
+      if ((boolean) message.getAttribute("ALGORITHM_TERMINATED")) {
+        this.onFinish(message);
         finishCondition = true;
       } else {
-        this.onNext(population);
+        this.onNext(message);
       }
     }
   }

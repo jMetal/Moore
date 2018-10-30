@@ -2,6 +2,7 @@ package org.uma.moore.component.common.termination.impl;
 
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.JMetalLogger;
+import org.uma.moore.Message;
 import org.uma.moore.Population;
 import org.uma.moore.component.common.termination.Termination;
 
@@ -14,26 +15,26 @@ public class TerminationByTime<S extends Solution<?>> extends Termination<S> {
   }
 
   @Override
-  public void onNext(Population<S> population) {
-    long computingTime = (long) population.getAttribute("INITIAL_COMPUTING_TIME");
+  public void onNext(Message message) {
+    long computingTime = (long) message.getAttribute("INITIAL_COMPUTING_TIME");
     long currentComputingTime = System.currentTimeMillis() - computingTime;
 
     if (currentComputingTime >= millisecondsToStop) {
       long finalComputingTime = System.currentTimeMillis();
 
       JMetalLogger.logger.info("TERMINATION. ALGORITHM TERMINATED");
-      population.setAttribute("ALGORITHM_TERMINATED", true);
-      population.setAttribute("END_COMPUTING_TIME", finalComputingTime);
+      message.setAttribute("ALGORITHM_TERMINATED", true);
+      message.setAttribute("END_COMPUTING_TIME", finalComputingTime);
       System.out.println("COMPUTING time: " +
-          (finalComputingTime - (long) population.getAttribute("INITIAL_COMPUTING_TIME")));
+          (finalComputingTime - (long) message.getAttribute("INITIAL_COMPUTING_TIME")));
     }
 
     getObservable().setChanged();
-    getObservable().notifyObservers(population);
+    getObservable().notifyObservers(message);
   }
 
   @Override
-  public void onFinish(Population<S> population) {
+  public void onFinish(Message message) {
   }
 
   @Override

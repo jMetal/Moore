@@ -3,11 +3,12 @@ package org.uma.moore.component.common.populationobserver;
 import java.io.FileNotFoundException;
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.JMetalLogger;
+import org.uma.moore.Message;
 import org.uma.moore.ObserverComponent;
 import org.uma.moore.Population;
 import org.uma.moore.util.ChartContainer;
 
-public class RealTimeChartObserver<S extends Solution<?>> extends ObserverComponent<S> {
+public class RealTimeChartObserver<S extends Solution<?>> extends ObserverComponent {
 
   private ChartContainer<S> chart ;
 
@@ -16,8 +17,11 @@ public class RealTimeChartObserver<S extends Solution<?>> extends ObserverCompon
   }
 
   @Override
-  public void onNext(Population<S> population) {
-    int evaluations = (int)population.getAttribute("EVALUATIONS") ;
+  public void onNext(Message message
+  ) {
+    int evaluations = (int)message.getAttribute("EVALUATIONS") ;
+    Population<S> population = (Population<S>) message.getAttribute("POPULATION");
+
     if (this.chart != null) {
       this.chart.getFrontChart().setTitle("Iteration: " + evaluations);
       this.chart.updateFrontCharts(population);
@@ -26,7 +30,7 @@ public class RealTimeChartObserver<S extends Solution<?>> extends ObserverCompon
   }
 
   @Override
-  public void onFinish(Population<S> population) {
+  public void onFinish(Message message) {
     JMetalLogger.logger.info("Real time chart observer terminated");
   }
 

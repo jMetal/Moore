@@ -3,6 +3,7 @@ package org.uma.moore.component.evolutionaryalgorithm.selection.impl;
 import java.util.Comparator;
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.comparator.DominanceComparator;
+import org.uma.moore.Message;
 import org.uma.moore.Population;
 import org.uma.moore.component.evolutionaryalgorithm.selection.Selection;
 import org.uma.moore.util.DataBuffer;
@@ -34,22 +35,23 @@ public class BinaryTournamentSelection<S extends Solution<?>> extends Selection<
   }
 
   @Override
-  public void onNext(Population<S> population) {
-    if (!(boolean)population.getAttribute("ALGORITHM_TERMINATED")) {
+  public void onNext(Message message) {
+    if (!(boolean)message.getAttribute("ALGORITHM_TERMINATED")) {
       Population<S> newPopulation = new Population<>(matingPoolSize);
+      Population<S> population = (Population<S>) message.getAttribute("POPULATION");
       while (newPopulation.size() < matingPoolSize) {
         newPopulation.add(binaryTournamentSelection.execute(population));
       }
 
-      population.setAttribute("MATING_POOL", newPopulation);
+      message.setAttribute("MATING_POOL", newPopulation);
     }
 
     getObservable().setChanged();
-    getObservable().notifyObservers(population);
+    getObservable().notifyObservers(message);
   }
 
   @Override
-  public void onFinish(Population<S> population) {
+  public void onFinish(Message message) {
 
   }
 

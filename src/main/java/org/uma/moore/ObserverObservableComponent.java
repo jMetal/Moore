@@ -5,31 +5,31 @@ import org.uma.moore.observer.Observable;
 import org.uma.moore.observer.impl.DefaultObservable;
 
 public abstract class ObserverObservableComponent<S extends Solution<?>> extends
-    ObserverComponent<S> {
-  private Observable<Population <S>> observable ;
+    ObserverComponent {
+  private Observable observable ;
 
-  public ObserverObservableComponent(Observable<Population<S>> observable) {
+  public ObserverObservableComponent(Observable observable) {
     super(observable.getName()) ;
     this.observable = observable ;
   }
 
   public ObserverObservableComponent(String componentName) {
     super(componentName) ;
-    observable = new DefaultObservable<>(componentName) ;
+    observable = new DefaultObservable(componentName) ;
   }
 
-  public abstract void onNext(Population<S> population) ;
+  public abstract void onNext(Message message) ;
 
-  public abstract void onFinish(Population<S> population);
+  public abstract void onFinish(Message message);
 
-  public Observable<Population<S>> getObservable() {
+  public Observable getObservable() {
     return this.observable ;
   }
 
   @Override
-  public void update(Observable<Population<S>> observable, Population<S> population) {
+  public void update(Observable observable, Message message) {
     try {
-      buffer.put(new Population<>(population));
+      buffer.put(new Message(message));
     } catch (InterruptedException e) {
       e.printStackTrace();
     }

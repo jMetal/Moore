@@ -4,22 +4,25 @@ import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.JMetalLogger;
 import org.uma.jmetal.util.fileoutput.SolutionListOutput;
 import org.uma.jmetal.util.fileoutput.impl.DefaultFileOutputContext;
+import org.uma.moore.Message;
 import org.uma.moore.ObserverComponent;
 import org.uma.moore.Population;
 
 public class PopulationToFilesWriterObserver<S extends Solution<?>> extends
-    ObserverComponent<S> {
+    ObserverComponent {
 
   public PopulationToFilesWriterObserver() {
     super("Population to files writer observer") ;
   }
 
   @Override
-  public void onNext(Population<S> population) {
+  public void onNext(Message message) {
   }
 
   @Override
-  public void onFinish(Population<S> population) {
+  public void onFinish(Message message) {
+    Population<S> population = (Population<S>) message.getAttribute("POPULATION");
+
     JMetalLogger.logger.info("POPULATION OBSERVER: ALGORITHM_TERMINATED");
     JMetalLogger.logger.info("POPULATION OBSERVER: WRITING RESULT TO FILES");
 

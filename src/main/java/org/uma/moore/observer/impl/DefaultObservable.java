@@ -2,6 +2,7 @@ package org.uma.moore.observer.impl;
 
 import java.util.HashSet;
 import java.util.Set;
+import org.uma.moore.Message;
 import org.uma.moore.observer.Observable;
 import org.uma.moore.observer.Observer;
 
@@ -10,8 +11,8 @@ import org.uma.moore.observer.Observer;
  *
  * @author Antonio J. Nebro <antonio@lcc.uma.es>
  */
-public class DefaultObservable<D> implements Observable<D> {
-	private Set<Observer<D>> observers ;
+public class DefaultObservable implements Observable {
+	private Set<Observer> observers ;
 	private boolean dataHasChanged ;
 	private String name ;
 
@@ -22,17 +23,17 @@ public class DefaultObservable<D> implements Observable<D> {
 	}
 
 	@Override
-	public synchronized void register(Observer<D> observer) {
+	public synchronized void register(Observer observer) {
 		observers.add(observer) ;
 	}
 
 	@Override
-	public synchronized void unregister(Observer<D> observer) {
+	public synchronized void unregister(Observer observer) {
 		observers.remove(observer) ;
 	}
 
 	@Override
-	public synchronized void notifyObservers(D data) {
+	public synchronized void notifyObservers(Message data) {
 		if (dataHasChanged) {
       observers.stream().forEach(observer -> observer.update(this, data));
 		}

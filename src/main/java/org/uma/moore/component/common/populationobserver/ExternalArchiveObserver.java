@@ -5,11 +5,12 @@ import org.uma.jmetal.util.JMetalLogger;
 import org.uma.jmetal.util.archive.Archive;
 import org.uma.jmetal.util.fileoutput.SolutionListOutput;
 import org.uma.jmetal.util.fileoutput.impl.DefaultFileOutputContext;
+import org.uma.moore.Message;
 import org.uma.moore.ObserverComponent;
 import org.uma.moore.Population;
 
 public class ExternalArchiveObserver<S extends Solution<?>>
-    extends ObserverComponent<S> {
+    extends ObserverComponent {
   private Archive<S> archive ;
   private String archiveName ;
 
@@ -20,14 +21,15 @@ public class ExternalArchiveObserver<S extends Solution<?>>
   }
 
   @Override
-  public void onNext(Population<S> population) {
+  public void onNext(Message message) {
+    Population<S> population = (Population<S>) message.getAttribute("POPULATION");
     for (S solution: population) {
       archive.add((S) solution.copy()) ;
     }
   }
 
   @Override
-  public void onFinish(Population<S> population) {
+  public void onFinish(Message message) {
     new SolutionListOutput(archive.getSolutionList())
         .setSeparator("\t")
         .setVarFileOutputContext(new DefaultFileOutputContext(archiveName + "_VAR.tsv"))

@@ -2,6 +2,7 @@ package org.uma.moore.component.common.createinitialpopulation.impl;
 
 import org.uma.jmetal.problem.Problem;
 import org.uma.jmetal.solution.Solution;
+import org.uma.moore.Message;
 import org.uma.moore.Population;
 import org.uma.moore.component.common.createinitialpopulation.CreateInitialPopulation;
 
@@ -21,11 +22,13 @@ public class RandomPopulationCreation<S extends Solution<?>> extends CreateIniti
 			initialPopulation.add(newIndividual);
 		}
 
-    initialPopulation.setAttribute("EVALUATIONS", 0);
-    initialPopulation.setAttribute("ALGORITHM_TERMINATED", false);
-    initialPopulation.setAttribute("INITIAL_COMPUTING_TIME", initialComputingTime);
+    Message message = new Message() ;
+		message.setAttribute("POPULATION", initialPopulation);
+    message.setAttribute("EVALUATIONS", 0);
+    message.setAttribute("ALGORITHM_TERMINATED", false);
+    message.setAttribute("INITIAL_COMPUTING_TIME", initialComputingTime);
 
     getObservable().setChanged() ;
-    getObservable().notifyObservers(initialPopulation);
+    getObservable().notifyObservers(message);
   }
 }

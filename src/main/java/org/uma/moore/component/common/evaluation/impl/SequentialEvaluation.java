@@ -3,6 +3,7 @@ package org.uma.moore.component.common.evaluation.impl;
 import org.uma.jmetal.problem.Problem;
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.JMetalException;
+import org.uma.moore.Message;
 import org.uma.moore.Population;
 import org.uma.moore.component.common.evaluation.Evaluation;
 
@@ -13,13 +14,12 @@ public class SequentialEvaluation<S extends Solution<?>> extends Evaluation<S> {
   }
 
   @Override
-  public void onNext(Population<S> population) {
-    if (!(boolean) population.getAttribute("ALGORITHM_TERMINATED")) {
+  public void onNext(Message message) {
+    if (!(boolean) message.getAttribute("ALGORITHM_TERMINATED")) {
       Population<S> populationToEvaluate;
-      if (populationIdentifier.equals("CURRENT_POPULATION")) {
-        populationToEvaluate = population;
-      } else if (population.getAttribute(populationIdentifier) != null) {
-        populationToEvaluate = (Population<S>) population.getAttribute(populationIdentifier);
+
+      if (message.getAttribute(populationIdentifier) != null) {
+        populationToEvaluate = (Population<S>) message.getAttribute(populationIdentifier);
       } else {
         throw new JMetalException("The population " + populationIdentifier + " does not exist");
       }
@@ -27,15 +27,16 @@ public class SequentialEvaluation<S extends Solution<?>> extends Evaluation<S> {
       populationToEvaluate.
           stream().
           forEach(solution -> problem.evaluate(solution));
-      population.setAttribute("EVALUATIONS",
-          (int) population.getAttribute("EVALUATIONS") + populationToEvaluate.size());
+
+      message.setAttribute("EVALUATIONS",
+          (int) message.getAttribute("EVALUATIONS") + populationToEvaluate.size());
     }
     getObservable().setChanged();
-    getObservable().notifyObservers(population);
+    getObservable().notifyObservers(message);
   }
 
   @Override
-  public void onFinish(Population<S> population) {
+  public void onFinish(Message message) {
   }
 
   @Override

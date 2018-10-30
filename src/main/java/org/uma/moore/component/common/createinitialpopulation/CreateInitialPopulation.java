@@ -7,8 +7,7 @@ import org.uma.moore.Population;
 import org.uma.moore.observer.Observable;
 
 public abstract class CreateInitialPopulation<S extends Solution<?>>
-    extends ObservableComponent<Population<S>> {
-  protected Observable<Population<S>> observable ;
+    extends ObservableComponent {
 
   protected Problem<S> problem ;
   protected int populationSize ;
