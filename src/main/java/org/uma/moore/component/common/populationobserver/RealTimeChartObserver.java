@@ -1,11 +1,11 @@
 package org.uma.moore.component.common.populationobserver;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.JMetalLogger;
 import org.uma.moore.Message;
 import org.uma.moore.ObserverComponent;
-import org.uma.moore.Population;
 import org.uma.moore.util.ChartContainer;
 
 public class RealTimeChartObserver<S extends Solution<?>> extends ObserverComponent {
@@ -20,7 +20,7 @@ public class RealTimeChartObserver<S extends Solution<?>> extends ObserverCompon
   public void onNext(Message message
   ) {
     int evaluations = (int)message.getAttribute("EVALUATIONS") ;
-    Population<S> population = (Population<S>) message.getAttribute("POPULATION");
+    List<S> population = (List<S>) message.getAttribute("POPULATION");
 
     if (this.chart != null) {
       this.chart.getFrontChart().setTitle("Iteration: " + evaluations);

@@ -3,7 +3,6 @@ package org.uma.moore.component.common.termination.impl;
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.JMetalLogger;
 import org.uma.moore.Message;
-import org.uma.moore.Population;
 import org.uma.moore.component.common.termination.Termination;
 
 public class TerminationByTime<S extends Solution<?>> extends Termination<S> {

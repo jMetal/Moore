@@ -1,10 +1,7 @@
 package org.uma.moore;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import org.uma.jmetal.solution.Solution;
 
 /**
  * Message to be sent between components. It is composed of a map of pairs <key, value> */

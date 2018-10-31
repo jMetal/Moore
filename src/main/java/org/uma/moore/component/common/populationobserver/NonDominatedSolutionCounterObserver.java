@@ -1,12 +1,12 @@
 package org.uma.moore.component.common.populationobserver;
 
+import java.util.List;
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.comparator.DominanceComparator;
 import org.uma.jmetal.util.solutionattribute.Ranking;
 import org.uma.jmetal.util.solutionattribute.impl.DominanceRanking;
 import org.uma.moore.Message;
 import org.uma.moore.ObserverComponent;
-import org.uma.moore.Population;
 
 public class NonDominatedSolutionCounterObserver<S extends Solution<?>> extends
     ObserverComponent {
@@ -18,7 +18,7 @@ public class NonDominatedSolutionCounterObserver<S extends Solution<?>> extends
   @Override
   public void onNext(Message message) {
     Ranking<S> ranking = new DominanceRanking<>(new DominanceComparator<>()) ;
-    Population<S> population = (Population<S>) message.getAttribute("POPULATION");
+    List<S> population = (List<S>) message.getAttribute("POPULATION");
     ranking.computeRanking(population) ;
     int numberOfNonDominatedSolutions ;
     numberOfNonDominatedSolutions = ranking.getSubfront(0).size() ;

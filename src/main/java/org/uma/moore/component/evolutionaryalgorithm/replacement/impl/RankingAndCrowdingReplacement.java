@@ -7,7 +7,7 @@ import java.util.List;
 import org.uma.jmetal.operator.impl.selection.RankingAndCrowdingSelection;
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.comparator.DominanceComparator;
-import org.uma.moore.Population;
+import org.uma.moore.Message;
 import org.uma.moore.component.evolutionaryalgorithm.replacement.Replacement;
 
 public class RankingAndCrowdingReplacement<S extends Solution<?>> extends Replacement<S> {
@@ -30,29 +30,27 @@ public class RankingAndCrowdingReplacement<S extends Solution<?>> extends Replac
   }
 
   @Override
-  public void onNext(Population<S> population) {
-    if (!(boolean)population.getAttribute("ALGORITHM_TERMINATED")) {
+  public void onNext(Message message) {
+    if (!(boolean)message.getAttribute("ALGORITHM_TERMINATED")) {
+      List<S> population = (List<S>) message.getAttribute("POPULATION");
 
       int populationSize = population.size();
 
       List<S> jointPopulation = new ArrayList<>();
       jointPopulation.addAll(population);
-      jointPopulation.addAll((Collection<? extends S>) population.getAttribute("OFFSPRING_POPULATION"));
+      jointPopulation.addAll((Collection<? extends S>) message.getAttribute("OFFSPRING_POPULATION"));
 
       RankingAndCrowdingSelection<S> rankingAndCrowdingSelection;
       rankingAndCrowdingSelection = new RankingAndCrowdingSelection<S>(populationSize, dominanceComparator);
 
-      Population<S> newPopulation = new Population<S>(
+      List<S> newPopulation = new ArrayList<>(
           rankingAndCrowdingSelection.execute(jointPopulation));
 
-      population.setAttribute("OFFSPRING_POPULATION", null);
-      newPopulation.setAttributes(population.getAttributes());
+      message.setAttribute("OFFSPRING_POPULATION", null);
+      message.setAttribute("POPULATION", newPopulation);
 
       getObservable().setChanged();
-      getObservable().notifyObservers(newPopulation);
-    } else {
-      getObservable().setChanged();
-      getObservable().notifyObservers(population);
+      getObservable().notifyObservers(message);
     }
   }
 
@@ -62,7 +60,7 @@ public class RankingAndCrowdingReplacement<S extends Solution<?>> extends Replac
   }
 
   @Override
-  public void onFinish(Population<S> population) {
+  public void onFinish(Message message) {
 
   }
 }

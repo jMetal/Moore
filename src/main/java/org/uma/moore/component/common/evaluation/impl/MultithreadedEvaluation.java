@@ -1,10 +1,10 @@
 package org.uma.moore.component.common.evaluation.impl;
 
+import java.util.List;
 import org.uma.jmetal.problem.Problem;
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.JMetalException;
 import org.uma.moore.Message;
-import org.uma.moore.Population;
 import org.uma.moore.component.common.evaluation.Evaluation;
 
 public class MultithreadedEvaluation<S extends Solution<?>> extends Evaluation<S> {
@@ -16,10 +16,10 @@ public class MultithreadedEvaluation<S extends Solution<?>> extends Evaluation<S
   @Override
   public void onNext(Message message) {
     if (!(boolean) message.getAttribute("ALGORITHM_TERMINATED")) {
-      Population<S> populationToEvaluate;
+      List<S> populationToEvaluate;
 
       if (message.getAttribute(populationIdentifier) != null) {
-        populationToEvaluate = (Population<S>) message.getAttribute(populationIdentifier);
+        populationToEvaluate = (List<S>) message.getAttribute(populationIdentifier);
       } else {
         throw new JMetalException("The population " + populationIdentifier + " does not exist");
       }

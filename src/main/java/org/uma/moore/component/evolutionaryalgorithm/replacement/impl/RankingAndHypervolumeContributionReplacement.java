@@ -10,7 +10,7 @@ import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.comparator.DominanceComparator;
 import org.uma.jmetal.util.solutionattribute.Ranking;
 import org.uma.jmetal.util.solutionattribute.impl.DominanceRanking;
-import org.uma.moore.Population;
+import org.uma.moore.Message;
 import org.uma.moore.component.evolutionaryalgorithm.replacement.Replacement;
 
 public class RankingAndHypervolumeContributionReplacement<S extends Solution<?>> extends
@@ -24,7 +24,7 @@ public class RankingAndHypervolumeContributionReplacement<S extends Solution<?>>
    */
   public RankingAndHypervolumeContributionReplacement(Comparator<S> dominanceComparator) {
     super("Ranking and hypervolume contribution replacement") ;
-
+    this.dominanceComparator = dominanceComparator ;
     hypervolume = new PISAHypervolume<>() ;
   }
 
@@ -36,12 +36,13 @@ public class RankingAndHypervolumeContributionReplacement<S extends Solution<?>>
   }
 
   @Override
-  public void onNext(Population<S> population) {
-    if (!(boolean)population.getAttribute("ALGORITHM_TERMINATED")) {
+  public void onNext(Message message) {
+    if (!(boolean)message.getAttribute("ALGORITHM_TERMINATED")) {
+      List<S> population = (List<S>) message.getAttribute("POPULATION");
 
       List<S> jointPopulation = new ArrayList<>();
       jointPopulation.addAll(population);
-      jointPopulation.addAll((Collection<? extends S>) population.getAttribute("OFFSPRING_POPULATION"));
+      jointPopulation.addAll((Collection<? extends S>) message.getAttribute("OFFSPRING_POPULATION"));
 
       Ranking<S> ranking = new DominanceRanking<S>(dominanceComparator);
       ranking.computeRanking(jointPopulation);
@@ -61,23 +62,18 @@ public class RankingAndHypervolumeContributionReplacement<S extends Solution<?>>
         resultPopulation.add(lastSubfront.get(i)) ;
       }
 
-      Population<S> newPopulation = new Population<S>(
-          resultPopulation);
-      newPopulation.setAttributes(population.getAttributes());
+      List<S> newPopulation = new ArrayList<>(resultPopulation);
 
-      population.setAttribute("OFFSPRING_POPULATION", null);
-      newPopulation.setAttributes(population.getAttributes());
+      message.setAttribute("OFFSPRING_POPULATION", null);
+      message.setAttribute("POPULATION", newPopulation);
 
       getObservable().setChanged();
-      getObservable().notifyObservers(newPopulation);
-    } else {
-      getObservable().setChanged();
-      getObservable().notifyObservers(population);
+      getObservable().notifyObservers(message);
     }
   }
 
   @Override
-  public void onFinish(Population<S> population) {
+  public void onFinish(Message message) {
 
   }
   @Override

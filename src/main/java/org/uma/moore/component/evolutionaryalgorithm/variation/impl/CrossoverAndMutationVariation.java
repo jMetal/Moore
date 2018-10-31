@@ -7,7 +7,6 @@ import org.uma.jmetal.operator.MutationOperator;
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.JMetalException;
 import org.uma.moore.Message;
-import org.uma.moore.Population;
 import org.uma.moore.component.evolutionaryalgorithm.variation.Variation;
 
 public class CrossoverAndMutationVariation<S extends Solution<?>> extends Variation<S> {
@@ -29,13 +28,13 @@ public class CrossoverAndMutationVariation<S extends Solution<?>> extends Variat
   public void onNext(Message message) {
     if (!(boolean)message.getAttribute("ALGORITHM_TERMINATED")) {
       int numberOfParents = crossover.getNumberOfRequiredParents();
-      Population<S> population = (Population<S>) message.getAttribute("POPULATION");
+      List<S> population = (List<S>) message.getAttribute("POPULATION");
 
       checkNumberOfParents(population, numberOfParents);
 
-      Population<S> offspringPopulation = (Population<S>) message.getAttribute("MATING_POOL");
+      List<S> offspringPopulation = (List<S>) message.getAttribute("MATING_POOL");
 
-      List<S> offspringList = new Population<S>();
+      List<S> offspringList = new ArrayList<>();
       for (int i = 0; i < offspringPopulation.size(); i += numberOfParents) {
         List<S> parents = new ArrayList<>(numberOfParents);
         for (int j = 0; j < numberOfParents; j++) {
@@ -52,8 +51,8 @@ public class CrossoverAndMutationVariation<S extends Solution<?>> extends Variat
         }
       }
 
-      population.setAttribute("MATING_POOL", null);
-      population.setAttribute("OFFSPRING_POPULATION", new Population<>(offspringList));
+      message.setAttribute("MATING_POOL", null);
+      message.setAttribute("OFFSPRING_POPULATION", new ArrayList<>(offspringList));
     }
     getObservable().setChanged() ;
     getObservable().notifyObservers(message);

@@ -43,9 +43,9 @@ public class SMSEMOA {
     populationObserver = new PopulationToFilesWriterObserver<>();
     EvolutionaryAlgorithm<DoubleSolution> algorithm = new EvolutionaryAlgorithm<>(
         new RandomPopulationCreation<>(problem, populationSize),
-        new SequentialEvaluation<>(problem, "CURRENT_POPULATION"),
+        new SequentialEvaluation<>(problem, "POPULATION"),
         new SequentialEvaluation<>(problem, "OFFSPRING_POPULATION"),
-        new TerminationByTime<>(10000),
+        new TerminationByTime<>(20000),
         new BinaryTournamentSelection<>(matingPoolSize, new DominanceComparator<>()),
         new CrossoverAndMutationVariation<>(crossover, mutation, offspringPopulationSize),
         new RankingAndHypervolumeContributionReplacement<>(new DominanceComparator<>()));

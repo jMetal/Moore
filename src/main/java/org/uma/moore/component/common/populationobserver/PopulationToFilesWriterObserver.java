@@ -1,12 +1,12 @@
 package org.uma.moore.component.common.populationobserver;
 
+import java.util.List;
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.JMetalLogger;
 import org.uma.jmetal.util.fileoutput.SolutionListOutput;
 import org.uma.jmetal.util.fileoutput.impl.DefaultFileOutputContext;
 import org.uma.moore.Message;
 import org.uma.moore.ObserverComponent;
-import org.uma.moore.Population;
 
 public class PopulationToFilesWriterObserver<S extends Solution<?>> extends
     ObserverComponent {
@@ -21,15 +21,15 @@ public class PopulationToFilesWriterObserver<S extends Solution<?>> extends
 
   @Override
   public void onFinish(Message message) {
-    Population<S> population = (Population<S>) message.getAttribute("POPULATION");
+    List<S> population = (List<S>) message.getAttribute("POPULATION");
 
     JMetalLogger.logger.info("POPULATION OBSERVER: ALGORITHM_TERMINATED");
     JMetalLogger.logger.info("POPULATION OBSERVER: WRITING RESULT TO FILES");
 
     JMetalLogger.logger.info("> Size = " + population.size());
     JMetalLogger.logger
-        .info("Termination = " + population.getAttribute("ALGORITHM_TERMINATED"));
-    JMetalLogger.logger.info("Evaluations = " + population.getAttribute("EVALUATIONS"));
+        .info("Termination = " + message.getAttribute("ALGORITHM_TERMINATED"));
+    JMetalLogger.logger.info("Evaluations = " + message.getAttribute("EVALUATIONS"));
 
     new SolutionListOutput(population)
         .setSeparator("\t")

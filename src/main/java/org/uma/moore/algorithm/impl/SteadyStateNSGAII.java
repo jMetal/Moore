@@ -43,7 +43,7 @@ public class SteadyStateNSGAII {
 
     EvolutionaryAlgorithm<DoubleSolution> algorithm = new EvolutionaryAlgorithm<>(
         new RandomPopulationCreation<>(problem, populationSize),
-        new SequentialEvaluation<>(problem, "CURRENT_POPULATION"),
+        new SequentialEvaluation<>(problem, "POPULATION"),
         new SequentialEvaluation<>(problem, "OFFSPRING_POPULATION"),
         new TerminationByEvaluations<>(totalNumberOfEvaluations),
         new BinaryTournamentSelection<>(matingPoolSize, new DominanceComparator<>()),

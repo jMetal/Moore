@@ -1,5 +1,6 @@
 package org.uma.moore.component.common.populationobserver;
 
+import java.util.List;
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.JMetalLogger;
 import org.uma.jmetal.util.archive.Archive;
@@ -7,7 +8,6 @@ import org.uma.jmetal.util.fileoutput.SolutionListOutput;
 import org.uma.jmetal.util.fileoutput.impl.DefaultFileOutputContext;
 import org.uma.moore.Message;
 import org.uma.moore.ObserverComponent;
-import org.uma.moore.Population;
 
 public class ExternalArchiveObserver<S extends Solution<?>>
     extends ObserverComponent {
@@ -22,7 +22,7 @@ public class ExternalArchiveObserver<S extends Solution<?>>
 
   @Override
   public void onNext(Message message) {
-    Population<S> population = (Population<S>) message.getAttribute("POPULATION");
+    List<S> population = (List<S>) message.getAttribute("POPULATION");
     for (S solution: population) {
       archive.add((S) solution.copy()) ;
     }

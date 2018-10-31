@@ -1,9 +1,10 @@
 package org.uma.moore.component.common.createinitialpopulation.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.uma.jmetal.problem.Problem;
 import org.uma.jmetal.solution.Solution;
 import org.uma.moore.Message;
-import org.uma.moore.Population;
 import org.uma.moore.component.common.createinitialpopulation.CreateInitialPopulation;
 
 public class RandomPopulationCreation<S extends Solution<?>> extends CreateInitialPopulation<S> {
@@ -16,7 +17,7 @@ public class RandomPopulationCreation<S extends Solution<?>> extends CreateIniti
 	public void apply() {
     long initialComputingTime = System.currentTimeMillis() ;
 
-		Population<S> initialPopulation = new Population<>(populationSize);
+		List<S> initialPopulation = new ArrayList<>(populationSize);
 		for (int i = 0; i < populationSize; i++) {
 			S newIndividual = problem.createSolution();
 			initialPopulation.add(newIndividual);

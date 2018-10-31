@@ -1,10 +1,11 @@
 package org.uma.moore.component.evolutionaryalgorithm.selection.impl;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.comparator.DominanceComparator;
 import org.uma.moore.Message;
-import org.uma.moore.Population;
 import org.uma.moore.component.evolutionaryalgorithm.selection.Selection;
 import org.uma.moore.util.DataBuffer;
 
@@ -19,7 +20,6 @@ import org.uma.moore.util.DataBuffer;
 
 public class BinaryTournamentSelection<S extends Solution<?>> extends Selection<S> {
   private org.uma.jmetal.operator.impl.selection.BinaryTournamentSelection<S> binaryTournamentSelection ;
-  private DataBuffer<Population<S>> buffer;
   private int matingPoolSize;
 
   public BinaryTournamentSelection(int offspringPopulationSize, Comparator<S> comparator ) {
@@ -37,8 +37,8 @@ public class BinaryTournamentSelection<S extends Solution<?>> extends Selection<
   @Override
   public void onNext(Message message) {
     if (!(boolean)message.getAttribute("ALGORITHM_TERMINATED")) {
-      Population<S> newPopulation = new Population<>(matingPoolSize);
-      Population<S> population = (Population<S>) message.getAttribute("POPULATION");
+      List<S> newPopulation = new ArrayList<>(matingPoolSize);
+      List<S> population = (List<S>) message.getAttribute("POPULATION");
       while (newPopulation.size() < matingPoolSize) {
         newPopulation.add(binaryTournamentSelection.execute(population));
       }
@@ -52,7 +52,6 @@ public class BinaryTournamentSelection<S extends Solution<?>> extends Selection<
 
   @Override
   public void onFinish(Message message) {
-
   }
 
   @Override
