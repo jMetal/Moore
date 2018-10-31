@@ -6,30 +6,36 @@ import java.util.Map;
 /**
  * Message to be sent between components. It is composed of a map of pairs <key, value> */
 public class Message {
-	public Map<String, Object> data;
+	public String type ;
+	public Map<String, Object> attributes;
 
-	public Message() {
-		super() ;
-		data = new HashMap<>() ;
+	public Message(String type) {
+	  this.type = type ;
+    attributes = new HashMap<>() ;
 	}
 
+  public Message() {
+    this("") ;
+  }
+
 	public Message(Message message) {
-	  data = new HashMap<>(message.getAttributes()) ;
+    this.type = message.type ;
+	  attributes = new HashMap<>(message.getAttributes()) ;
   }
 
   public Object getAttribute(String attributeName) {
-		return data.getOrDefault(attributeName, null);
+		return attributes.getOrDefault(attributeName, null);
 	}
 
 	public void setAttribute(String attributeName, Object value) {
-		data.put(attributeName, value);
+    attributes.put(attributeName, value);
 	}
 
 	public Map<String, Object> getAttributes() {
-	  return data ;
+	  return attributes;
   }
 
   public void setAttributes(Map<String, Object> attributes) {
-	  this.data = attributes ;
+	  this.attributes = attributes ;
   }
 }

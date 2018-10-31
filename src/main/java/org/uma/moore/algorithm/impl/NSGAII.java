@@ -16,6 +16,7 @@ import org.uma.moore.component.common.populationobserver.EvaluationObserver;
 import org.uma.moore.component.common.populationobserver.PopulationToFilesWriterObserver;
 import org.uma.moore.component.common.populationobserver.RealTimeChartObserver;
 import org.uma.moore.component.common.termination.impl.TerminationByEvaluations;
+import org.uma.moore.component.common.termination.impl.TerminationByKeyboard;
 import org.uma.moore.component.evolutionaryalgorithm.replacement.impl.RankingAndCrowdingReplacement;
 import org.uma.moore.component.evolutionaryalgorithm.selection.impl.BinaryTournamentSelection;
 import org.uma.moore.component.evolutionaryalgorithm.variation.impl.CrossoverAndMutationVariation;
@@ -47,7 +48,7 @@ public class NSGAII {
         new RandomPopulationCreation<>(problem, populationSize),
         new SequentialEvaluation<>(problem, "POPULATION"),
         new SequentialEvaluation<>(problem, "OFFSPRING_POPULATION"),
-        new TerminationByEvaluations<>(maxNumberOfEvaluations),
+        new TerminationByKeyboard<>(maxNumberOfEvaluations),
         new BinaryTournamentSelection<>(matingPoolSize, new DominanceComparator<>()),
         new CrossoverAndMutationVariation<>(crossover, mutation, offspringPopulationSize),
         new RankingAndCrowdingReplacement<>(new DominanceComparator<>())) ;
@@ -56,12 +57,13 @@ public class NSGAII {
     populationObserver.start();
 
     // Examples of observers
-
+    /*
     EvaluationObserver<DoubleSolution> evaluationObserver =
         new EvaluationObserver<>(maxNumberOfEvaluations, 100) ;
 
     algorithm.getTermination().getObservable().register(evaluationObserver);
     evaluationObserver.start();
+    */
     /*
     NonDominatedSolutionCounterObserver<DoubleSolution> nonDominatedSolutionCounterObserver =
         new NonDominatedSolutionCounterObserver<>() ;
@@ -82,6 +84,7 @@ public class NSGAII {
     externalBoundedArchive.start();
     externalUnboundedArchive.start();
     */
+
     RealTimeChartObserver<DoubleSolution> realTimeChartObserver
             = new RealTimeChartObserver<>("NSGA-II", "/paretoFronts/ZDT1.pf") ;
     algorithm.getTermination().getObservable().register(realTimeChartObserver);

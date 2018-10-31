@@ -23,7 +23,7 @@ public class RandomPopulationCreation<S extends Solution<?>> extends CreateIniti
 			initialPopulation.add(newIndividual);
 		}
 
-    Message message = new Message() ;
+    Message message = new Message("Population") ;
 		message.setAttribute("POPULATION", initialPopulation);
     message.setAttribute("EVALUATIONS", 0);
     message.setAttribute("ALGORITHM_TERMINATED", false);
