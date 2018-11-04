@@ -8,6 +8,13 @@ import org.uma.moore.ObservableComponent;
 import org.uma.moore.component.common.termination.Termination;
 import org.uma.moore.component.miscelanea.observable.KeyboardReader;
 
+/**
+ * This termination class can receive an string from a {@Link KeyboardReader} object, what is
+ * considered as a stopping condition. However, the computation is considered as finished when the
+ * termination object receives a message with the population, i.e., it is assumed that the
+ * loop of the evolutionary algorithm (or whatever other metaheuristic) has been completed.
+ * @param <S>
+ */
 public class TerminationByKeyboard<S extends Solution<?>> extends Termination<S> {
   private ObservableComponent keyboardReader;
   private Message lastReceivedPopulationMessage = null ;
