@@ -44,7 +44,7 @@ public class PairwiseReplacement<S extends Solution<?>> extends Replacement<S> {
   public void onNext(Message message) {
     if (!(boolean)message.getAttribute("ALGORITHM_TERMINATED")) {
       List<S> population = (List<S>) message.getAttribute("POPULATION");
-      List<S> offspringPopulation = ((List<S>) message.getAttribute("MATING_POOL"));
+      List<S> offspringPopulation = ((List<S>) message.getAttribute("OFFSPRING_POPULATION"));
       int populationSize = population.size();
 
       if (populationSize != offspringPopulation.size()) {
@@ -52,7 +52,7 @@ public class PairwiseReplacement<S extends Solution<?>> extends Replacement<S> {
             + "the offpsring population size " + offspringPopulation.size()) ;
       }
 
-      List<S> temporalPopulation = new ArrayList<>() ;
+      List<S> temporaryPopulation = new ArrayList<>() ;
       for (int i = 0; i < populationSize; i++) {
         // Dominance test
         S child = offspringPopulation.get(i);
@@ -60,22 +60,21 @@ public class PairwiseReplacement<S extends Solution<?>> extends Replacement<S> {
         result = dominanceComparator.compare(population.get(i), child);
         if (result == -1) {
           // Solution i dominates child
-          temporalPopulation.add(population.get(i));
+          temporaryPopulation.add(population.get(i));
         } else if (result == 1) {
           // child dominates
-          temporalPopulation.add(child);
+          temporaryPopulation.add(child);
         } else {
           // the two solutions are non-dominated
-          temporalPopulation.add(child);
-          temporalPopulation.add(population.get(i));
+          temporaryPopulation.add(child);
+          temporaryPopulation.add(population.get(i));
         }
       }
       RankingAndCrowdingSelection<S> rankingAndCrowdingSelection;
       rankingAndCrowdingSelection = new RankingAndCrowdingSelection<S>(populationSize, dominanceComparator);
 
       List<S> newPopulation = new ArrayList<>(
-          rankingAndCrowdingSelection.execute(temporalPopulation));
-      //newPopulation.setAttributes(population.getAttributes());
+          rankingAndCrowdingSelection.execute(temporaryPopulation));
 
       message.setAttribute("OFFSPRING_POPULATION", null);
       message.setAttribute("POPULATION", newPopulation);

@@ -2,6 +2,7 @@ package org.uma.moore.algorithm.impl;
 
 import org.uma.jmetal.operator.CrossoverOperator;
 import org.uma.jmetal.operator.MutationOperator;
+import org.uma.jmetal.operator.impl.crossover.DifferentialEvolutionCrossover;
 import org.uma.jmetal.operator.impl.crossover.SBXCrossover;
 import org.uma.jmetal.operator.impl.mutation.PolynomialMutation;
 import org.uma.jmetal.problem.DoubleProblem;
@@ -14,30 +15,30 @@ import org.uma.moore.component.common.createinitialpopulation.impl.RandomPopulat
 import org.uma.moore.component.common.evaluation.impl.SequentialEvaluation;
 import org.uma.moore.component.common.populationobserver.PopulationToFilesWriterObserver;
 import org.uma.moore.component.common.populationobserver.RealTimeChartObserver;
+import org.uma.moore.component.common.termination.impl.TerminationByEvaluations;
 import org.uma.moore.component.common.termination.impl.TerminationByKeyboard;
+import org.uma.moore.component.evolutionaryalgorithm.replacement.impl.PairwiseReplacement;
 import org.uma.moore.component.evolutionaryalgorithm.replacement.impl.RankingAndCrowdingReplacement;
 import org.uma.moore.component.evolutionaryalgorithm.selection.impl.BinaryTournamentSelection;
+import org.uma.moore.component.evolutionaryalgorithm.selection.impl.DifferentialEvolutionSelection;
 import org.uma.moore.component.evolutionaryalgorithm.variation.impl.CrossoverAndMutationVariation;
+import org.uma.moore.component.evolutionaryalgorithm.variation.impl.DifferentialEvolutionVariation;
 
 public class GDE3 {
   public static void main (String[] args) {
     DoubleProblem problem = new ZDT1() ;
     int populationSize = 100 ;
     int offspringPopulationSize = 100 ;
-    int matingPoolSize = 100 ;
+    int matingPoolSize = 300 ;
     int maxNumberOfEvaluations = 25000 ;
 
     JMetalLogger.logger.setUseParentHandlers(false);
 
-    double crossoverProbability = 0.9 ;
-    double crossoverDistributionIndex = 20.0 ;
-    CrossoverOperator<DoubleSolution> crossover =
-        new SBXCrossover(crossoverProbability, crossoverDistributionIndex) ;
+    DifferentialEvolutionCrossover crossover;
 
-    double mutationProbability = 1.0 / problem.getNumberOfVariables() ;
-    double mutationDistributionIndex = 20.0 ;
-    MutationOperator<DoubleSolution> mutation =
-        new PolynomialMutation(mutationProbability, mutationDistributionIndex) ;
+    double cr = 0.5;
+    double f = 0.5;
+    crossover = new DifferentialEvolutionCrossover(cr, f, "rand/1/bin");
 
     PopulationToFilesWriterObserver<DoubleSolution> populationObserver;
     populationObserver = new PopulationToFilesWriterObserver<>();
@@ -46,10 +47,10 @@ public class GDE3 {
         new RandomPopulationCreation<>(problem, populationSize),
         new SequentialEvaluation<>(problem, "POPULATION"),
         new SequentialEvaluation<>(problem, "OFFSPRING_POPULATION"),
-        new TerminationByKeyboard<>(maxNumberOfEvaluations),
-        new BinaryTournamentSelection<>(matingPoolSize, new DominanceComparator<>()),
-        new CrossoverAndMutationVariation<>(crossover, mutation, offspringPopulationSize),
-        new RankingAndCrowdingReplacement<>(new DominanceComparator<>())) ;
+        new TerminationByEvaluations<>(maxNumberOfEvaluations),
+        new DifferentialEvolutionSelection(matingPoolSize),
+        new DifferentialEvolutionVariation(offspringPopulationSize, crossover),
+        new PairwiseReplacement<>(new DominanceComparator<>())) ;
 
     algorithm.getTermination().getObservable().register(populationObserver);
     populationObserver.start();
@@ -84,7 +85,7 @@ public class GDE3 {
     */
 
     RealTimeChartObserver<DoubleSolution> realTimeChartObserver
-            = new RealTimeChartObserver<>("NSGA-II", "/paretoFronts/ZDT1.pf") ;
+            = new RealTimeChartObserver<>("GDE3", "/paretoFronts/ZDT1.pf") ;
     algorithm.getTermination().getObservable().register(realTimeChartObserver);
     realTimeChartObserver.start();
 

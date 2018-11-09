@@ -24,7 +24,7 @@ public class DifferentialEvolutionSelection extends Selection<DoubleSolution> {
   private int matingPoolSize;
 
   public DifferentialEvolutionSelection(int matingPoolSize) {
-    super("Binary tournament selection") ;
+    super("Differential Evolution Selection") ;
     this.differentialEvolutionSelection =
         new org.uma.jmetal.operator.impl.selection.DifferentialEvolutionSelection() ;
     this.matingPoolSize = matingPoolSize ;
@@ -57,6 +57,6 @@ public class DifferentialEvolutionSelection extends Selection<DoubleSolution> {
 
   @Override
   public String getDescription() {
-    return "Binary tournament selection object";
+    return "Differential Evolution Selection object";
   }
 }
