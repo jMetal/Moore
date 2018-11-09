@@ -1,5 +1,8 @@
 package org.uma.moore.algorithm.impl;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 import org.uma.jmetal.operator.CrossoverOperator;
 import org.uma.jmetal.operator.MutationOperator;
 import org.uma.jmetal.operator.impl.crossover.DifferentialEvolutionCrossover;
@@ -10,6 +13,7 @@ import org.uma.jmetal.problem.multiobjective.zdt.ZDT1;
 import org.uma.jmetal.solution.DoubleSolution;
 import org.uma.jmetal.util.JMetalLogger;
 import org.uma.jmetal.util.comparator.DominanceComparator;
+import org.uma.jmetal.util.comparator.GDominanceComparator;
 import org.uma.moore.algorithm.EvolutionaryAlgorithm;
 import org.uma.moore.component.common.createinitialpopulation.impl.RandomPopulationCreation;
 import org.uma.moore.component.common.evaluation.impl.SequentialEvaluation;
@@ -43,6 +47,10 @@ public class GDE3 {
     PopulationToFilesWriterObserver<DoubleSolution> populationObserver;
     populationObserver = new PopulationToFilesWriterObserver<>();
 
+    //List<Double> referencePoint = Arrays.asList(0.1, 1.0) ;
+    //Comparator<DoubleSolution> dominanceComparator = new GDominanceComparator<>(referencePoint) ;
+    Comparator<DoubleSolution> dominanceComparator = new DominanceComparator<>() ;
+
     EvolutionaryAlgorithm<DoubleSolution> algorithm = new EvolutionaryAlgorithm<>(
         new RandomPopulationCreation<>(problem, populationSize),
         new SequentialEvaluation<>(problem, "POPULATION"),
@@ -50,7 +58,7 @@ public class GDE3 {
         new TerminationByEvaluations<>(maxNumberOfEvaluations),
         new DifferentialEvolutionSelection(matingPoolSize),
         new DifferentialEvolutionVariation(offspringPopulationSize, crossover),
-        new PairwiseReplacement<>(new DominanceComparator<>())) ;
+        new PairwiseReplacement<>(dominanceComparator)) ;
 
     algorithm.getTermination().getObservable().register(populationObserver);
     populationObserver.start();
