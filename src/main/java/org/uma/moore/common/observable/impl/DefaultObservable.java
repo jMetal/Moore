@@ -2,9 +2,9 @@ package org.uma.moore.common.observable.impl;
 
 import java.util.HashSet;
 import java.util.Set;
-import org.uma.moore.Message;
 import org.uma.moore.common.observable.Observable;
 import org.uma.moore.common.observer.Observer;
+import org.uma.moore.common.util.Message;
 
 /**
  * Default implementation of the {@link Observable} interface
