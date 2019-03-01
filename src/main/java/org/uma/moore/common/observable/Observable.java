@@ -1,7 +1,7 @@
 package org.uma.moore.common.observable;
 
+import org.uma.jmetal.util.naming.DescribedEntity;
 import org.uma.moore.common.observer.Observer;
-import org.uma.moore.common.util.DescribedEntity;
 import org.uma.moore.common.util.Message;
 
 /**
