@@ -1,8 +1,8 @@
 package org.uma.moore.architecture.component.component.common.termination.impl;
 
-import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.JMetalException;
 import org.uma.jmetal.util.JMetalLogger;
+import org.uma.moore.common.solution.Solution;
 import org.uma.moore.common.util.Message;
 import org.uma.moore.architecture.component.util.ObservableComponent;
 import org.uma.moore.architecture.component.component.common.termination.Termination;

@@ -2,10 +2,11 @@ package org.uma.moore.architecture.component.component.evolutionaryalgorithm.var
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.uma.jmetal.operator.CrossoverOperator;
 import org.uma.jmetal.operator.MutationOperator;
-import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.JMetalException;
+import org.uma.moore.common.solution.Solution;
 import org.uma.moore.common.util.Message;
 import org.uma.moore.architecture.component.component.evolutionaryalgorithm.variation.Variation;
 

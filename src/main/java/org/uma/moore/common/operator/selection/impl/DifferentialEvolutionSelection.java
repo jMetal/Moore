@@ -1,10 +1,10 @@
 package org.uma.moore.common.operator.selection.impl;
 
-import org.uma.jmetal6.core.solution.impl.DoubleSolution;
-import org.uma.jmetal6.operator.SelectionOperator;
-import org.uma.jmetal6.util.JMetalException;
-import org.uma.jmetal6.util.pseudorandom.BoundedRandomGenerator;
-import org.uma.jmetal6.util.pseudorandom.JMetalRandom;
+import org.uma.jmetal.operator.SelectionOperator;
+import org.uma.jmetal.util.JMetalException;
+import org.uma.jmetal.util.pseudorandom.JMetalRandom;
+import org.uma.moore.common.solution.impl.DoubleSolution;
+import org.uma.moore.common.util.pseudorandom.BoundedRandomGenerator;
 
 import java.util.ArrayList;
 import java.util.List;

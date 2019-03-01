@@ -1,6 +1,6 @@
 package org.uma.moore.common.problem.util;
 
-import org.uma.jmetal6.core.problem.Problem;
+import org.uma.moore.common.problem.Problem;
 
 @SuppressWarnings("serial")
 public abstract class AbstractGenericProblem<S> implements Problem<S> {

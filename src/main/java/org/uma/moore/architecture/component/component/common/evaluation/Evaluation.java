@@ -1,8 +1,8 @@
 package org.uma.moore.architecture.component.component.common.evaluation;
 
-import org.uma.jmetal.problem.Problem;
-import org.uma.jmetal.solution.Solution;
 import org.uma.moore.architecture.component.util.ObserverObservableComponent;
+import org.uma.moore.common.problem.Problem;
+import org.uma.moore.common.solution.Solution;
 
 public abstract class Evaluation<S extends Solution<?>>
     extends ObserverObservableComponent<S> {

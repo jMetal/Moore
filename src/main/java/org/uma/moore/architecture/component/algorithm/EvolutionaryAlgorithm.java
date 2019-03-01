@@ -1,12 +1,12 @@
 package org.uma.moore.architecture.component.algorithm;
 
-import org.uma.jmetal.solution.Solution;
 import org.uma.moore.architecture.component.component.common.createinitialpopulation.CreateInitialPopulation;
 import org.uma.moore.architecture.component.component.common.evaluation.Evaluation;
 import org.uma.moore.architecture.component.component.common.termination.Termination;
 import org.uma.moore.architecture.component.component.evolutionaryalgorithm.replacement.Replacement;
 import org.uma.moore.architecture.component.component.evolutionaryalgorithm.selection.Selection;
 import org.uma.moore.architecture.component.component.evolutionaryalgorithm.variation.Variation;
+import org.uma.moore.common.solution.Solution;
 
 public class EvolutionaryAlgorithm<S extends Solution<?>> {
 

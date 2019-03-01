@@ -1,8 +1,8 @@
 package org.uma.moore.common.operator.selection.impl;
 
-import org.uma.jmetal6.operator.SelectionOperator;
-import org.uma.jmetal6.util.JMetalException;
-import org.uma.jmetal6.util.SolutionListUtils;
+import org.uma.jmetal.operator.SelectionOperator;
+import org.uma.jmetal.util.JMetalException;
+import org.uma.moore.common.util.SolutionListUtils;
 
 import java.util.List;
 

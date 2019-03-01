@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.uma.jmetal.operator.impl.crossover.DifferentialEvolutionCrossover;
-import org.uma.jmetal.solution.DoubleSolution;
 import org.uma.jmetal.util.JMetalException;
+import org.uma.moore.common.solution.impl.DoubleSolution;
 import org.uma.moore.common.util.Message;
 import org.uma.moore.architecture.component.component.evolutionaryalgorithm.variation.Variation;
 
