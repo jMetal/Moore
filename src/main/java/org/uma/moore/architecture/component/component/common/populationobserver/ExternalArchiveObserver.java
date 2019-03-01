@@ -1,13 +1,14 @@
 package org.uma.moore.architecture.component.component.common.populationobserver;
 
-import java.util.List;
-import org.uma.jmetal.solution.Solution;
-import org.uma.jmetal.util.JMetalLogger;
-import org.uma.jmetal.util.archive.Archive;
-import org.uma.jmetal.util.fileoutput.SolutionListOutput;
-import org.uma.jmetal.util.fileoutput.impl.DefaultFileOutputContext;
-import org.uma.moore.common.util.Message;
 import org.uma.moore.architecture.component.util.ObserverComponent;
+import org.uma.moore.common.solution.Solution;
+import org.uma.moore.common.util.Message;
+import org.uma.moore.common.util.MooreLogger;
+import org.uma.moore.common.util.archive.Archive;
+import org.uma.moore.common.util.fileoutput.SolutionListOutput;
+import org.uma.moore.common.util.fileoutput.impl.DefaultFileOutputContext;
+
+import java.util.List;
 
 public class ExternalArchiveObserver<S extends Solution<?>>
     extends ObserverComponent {
@@ -35,7 +36,7 @@ public class ExternalArchiveObserver<S extends Solution<?>>
         .setVarFileOutputContext(new DefaultFileOutputContext(archiveName + "_VAR.tsv"))
         .setFunFileOutputContext(new DefaultFileOutputContext(archiveName + "_FUN.tsv"))
         .print();
-    JMetalLogger.logger.info("External archive observer");
+    MooreLogger.logger.info("External archive observer");
   }
 
 

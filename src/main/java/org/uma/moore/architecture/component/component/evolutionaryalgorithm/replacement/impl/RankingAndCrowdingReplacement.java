@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
-import org.uma.jmetal.operator.impl.selection.RankingAndCrowdingSelection;
-import org.uma.jmetal.solution.Solution;
-import org.uma.jmetal.util.comparator.DominanceComparator;
+
+import org.uma.moore.common.operator.selection.impl.RankingAndCrowdingSelection;
+import org.uma.moore.common.solution.Solution;
 import org.uma.moore.common.util.Message;
 import org.uma.moore.architecture.component.component.evolutionaryalgorithm.replacement.Replacement;
+import org.uma.moore.common.util.comparator.DominanceComparator;
 
 public class RankingAndCrowdingReplacement<S extends Solution<?>> extends Replacement<S> {
 

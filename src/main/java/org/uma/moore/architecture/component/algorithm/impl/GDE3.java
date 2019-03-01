@@ -1,13 +1,8 @@
 package org.uma.moore.architecture.component.algorithm.impl;
 
-import java.util.Comparator;
-
 import org.uma.jmetal.operator.impl.crossover.DifferentialEvolutionCrossover;
-import org.uma.jmetal.problem.DoubleProblem;
 import org.uma.jmetal.problem.multiobjective.zdt.ZDT1;
-import org.uma.jmetal.solution.DoubleSolution;
 import org.uma.jmetal.util.JMetalLogger;
-import org.uma.jmetal.util.comparator.DominanceComparator;
 import org.uma.moore.architecture.component.algorithm.EvolutionaryAlgorithm;
 import org.uma.moore.architecture.component.component.common.createinitialpopulation.impl.RandomPopulationCreation;
 import org.uma.moore.architecture.component.component.common.evaluation.impl.SequentialEvaluation;
@@ -17,6 +12,11 @@ import org.uma.moore.architecture.component.component.common.termination.impl.Te
 import org.uma.moore.architecture.component.component.evolutionaryalgorithm.replacement.impl.PairwiseReplacement;
 import org.uma.moore.architecture.component.component.evolutionaryalgorithm.selection.impl.DifferentialEvolutionSelection;
 import org.uma.moore.architecture.component.component.evolutionaryalgorithm.variation.impl.DifferentialEvolutionVariation;
+import org.uma.moore.common.problem.DoubleProblem;
+import org.uma.moore.common.solution.impl.DoubleSolution;
+import org.uma.moore.common.util.comparator.DominanceComparator;
+
+import java.util.Comparator;
 
 public class GDE3 {
   public static void main (String[] args) {

@@ -1,11 +1,12 @@
 package org.uma.moore.architecture.component.component.common.createinitialpopulation.impl;
 
+import org.uma.moore.architecture.component.component.common.createinitialpopulation.CreateInitialPopulation;
+import org.uma.moore.common.problem.Problem;
+import org.uma.moore.common.solution.Solution;
+import org.uma.moore.common.util.Message;
+
 import java.util.ArrayList;
 import java.util.List;
-import org.uma.jmetal.problem.Problem;
-import org.uma.jmetal.solution.Solution;
-import org.uma.moore.common.util.Message;
-import org.uma.moore.architecture.component.component.common.createinitialpopulation.CreateInitialPopulation;
 
 public class RandomPopulationCreation<S extends Solution<?>> extends CreateInitialPopulation<S> {
 

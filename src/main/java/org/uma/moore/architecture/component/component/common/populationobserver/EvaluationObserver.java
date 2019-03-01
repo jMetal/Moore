@@ -1,9 +1,9 @@
 package org.uma.moore.architecture.component.component.common.populationobserver;
 
-import org.uma.jmetal.solution.Solution;
-import org.uma.jmetal.util.JMetalLogger;
-import org.uma.moore.common.util.Message;
 import org.uma.moore.architecture.component.util.ObserverComponent;
+import org.uma.moore.common.solution.Solution;
+import org.uma.moore.common.util.Message;
+import org.uma.moore.common.util.MooreLogger;
 
 public class EvaluationObserver<S extends Solution<?>> extends ObserverComponent {
   private int maxEvaluations ;
@@ -26,7 +26,7 @@ public class EvaluationObserver<S extends Solution<?>> extends ObserverComponent
 
   @Override
   public void onFinish(Message message) {
-    JMetalLogger.logger.info("Evaluation observed terminated");
+    MooreLogger.logger.info("Evaluation observed terminated");
   }
 
   @Override

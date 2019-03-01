@@ -1,8 +1,8 @@
 package org.uma.moore.architecture.component.util;
 
-import org.uma.jmetal.solution.Solution;
 import org.uma.moore.common.observable.Observable;
 import org.uma.moore.common.observer.Observer;
+import org.uma.moore.common.solution.Solution;
 import org.uma.moore.common.util.DataBuffer;
 import org.uma.moore.common.util.Message;
 

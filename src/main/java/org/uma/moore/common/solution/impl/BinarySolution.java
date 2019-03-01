@@ -1,8 +1,8 @@
 package org.uma.moore.common.solution.impl;
 
-import org.uma.jmetal.util.pseudorandom.JMetalRandom;
 import org.uma.moore.common.solution.util.BinarySet;
 import org.uma.moore.common.util.MooreException;
+import org.uma.moore.common.util.pseudorandom.MooreRandom;
 
 import java.util.HashMap;
 
@@ -46,7 +46,7 @@ public class BinarySolution extends AbstractSolution<BinarySet> {
     BinarySet bitSet = new BinarySet(numberOfBits) ;
 
     for (int i = 0; i < numberOfBits; i++) {
-      double rnd = JMetalRandom.getInstance().nextDouble() ;
+      double rnd = MooreRandom.getInstance().nextDouble() ;
       if (rnd < 0.5) {
         bitSet.set(i);
       } else {

@@ -1,12 +1,12 @@
 package org.uma.moore.common.operator.crossover.imp;
 
-import org.uma.jmetal.util.pseudorandom.JMetalRandom;
-import org.uma.jmetal.util.pseudorandom.RandomGenerator;
 import org.uma.moore.common.operator.crossover.Crossover;
 import org.uma.moore.common.solution.impl.DoubleSolution;
 import org.uma.moore.common.solution.util.RepairDoubleSolution;
 import org.uma.moore.common.solution.util.impl.RepairDoubleSolutionAtBounds;
 import org.uma.moore.common.util.MooreException;
+import org.uma.moore.common.util.pseudorandom.MooreRandom;
+import org.uma.moore.common.util.pseudorandom.RandomGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +39,7 @@ public class BLXAlphaCrossover implements Crossover<DoubleSolution> {
 
   /** Constructor */
   public BLXAlphaCrossover(double crossoverProbability, double alpha, RepairDoubleSolution solutionRepair) {
-	  this(crossoverProbability, alpha, solutionRepair, () -> JMetalRandom.getInstance().nextDouble());
+	  this(crossoverProbability, alpha, solutionRepair, () -> MooreRandom.getInstance().nextDouble());
   }
 
   /** Constructor */

@@ -2,13 +2,8 @@ package org.uma.moore.architecture.component.algorithm.impl;
 
 import org.uma.jmetal.operator.CrossoverOperator;
 import org.uma.jmetal.operator.MutationOperator;
-import org.uma.jmetal.operator.impl.crossover.SBXCrossover;
-import org.uma.jmetal.operator.impl.mutation.PolynomialMutation;
-import org.uma.jmetal.problem.DoubleProblem;
 import org.uma.jmetal.problem.multiobjective.zdt.ZDT4;
-import org.uma.jmetal.solution.DoubleSolution;
 import org.uma.jmetal.util.JMetalLogger;
-import org.uma.jmetal.util.comparator.DominanceComparator;
 import org.uma.moore.architecture.component.algorithm.EvolutionaryAlgorithm;
 import org.uma.moore.architecture.component.component.common.createinitialpopulation.impl.RandomPopulationCreation;
 import org.uma.moore.architecture.component.component.common.evaluation.impl.SequentialEvaluation;
@@ -18,6 +13,11 @@ import org.uma.moore.architecture.component.component.common.termination.impl.Te
 import org.uma.moore.architecture.component.component.evolutionaryalgorithm.replacement.impl.RankingAndHypervolumeContributionReplacement;
 import org.uma.moore.architecture.component.component.evolutionaryalgorithm.selection.impl.BinaryTournamentSelection;
 import org.uma.moore.architecture.component.component.evolutionaryalgorithm.variation.impl.CrossoverAndMutationVariation;
+import org.uma.moore.common.operator.crossover.imp.SBXCrossover;
+import org.uma.moore.common.operator.mutation.impl.PolynomialMutation;
+import org.uma.moore.common.problem.DoubleProblem;
+import org.uma.moore.common.solution.impl.DoubleSolution;
+import org.uma.moore.common.util.comparator.DominanceComparator;
 
 public class SMSEMOA {
   public static void main(String[] args) {

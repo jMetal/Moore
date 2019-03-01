@@ -1,8 +1,8 @@
 package org.uma.moore.architecture.component.component.common.createinitialpopulation;
 
-import org.uma.jmetal.problem.Problem;
-import org.uma.jmetal.solution.Solution;
 import org.uma.moore.architecture.component.util.ObservableComponent;
+import org.uma.moore.common.problem.Problem;
+import org.uma.moore.common.solution.Solution;
 
 public abstract class CreateInitialPopulation<S extends Solution<?>>
     extends ObservableComponent {

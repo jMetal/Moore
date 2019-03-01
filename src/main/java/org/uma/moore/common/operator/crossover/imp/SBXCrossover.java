@@ -1,13 +1,11 @@
 package org.uma.moore.common.operator.crossover.imp;
 
-
-import com.sun.tools.internal.ws.processor.modeler.ModelerException;
-import org.uma.jmetal.util.pseudorandom.JMetalRandom;
 import org.uma.moore.common.operator.crossover.Crossover;
 import org.uma.moore.common.solution.impl.DoubleSolution;
 import org.uma.moore.common.solution.util.RepairDoubleSolution;
 import org.uma.moore.common.solution.util.impl.RepairDoubleSolutionAtBounds;
 import org.uma.moore.common.util.MooreException;
+import org.uma.moore.common.util.pseudorandom.MooreRandom;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,11 +85,11 @@ public class SBXCrossover implements Crossover<DoubleSolution> {
     double alpha, beta, betaq;
     double valueX1, valueX2;
 
-    if (JMetalRandom.getInstance().nextDouble() <= probability) {
+    if (MooreRandom.getInstance().nextDouble() <= probability) {
       for (i = 0; i < parent1.getNumberOfVariables(); i++) {
         valueX1 = parent1.getVariable(i);
         valueX2 = parent2.getVariable(i);
-        if (JMetalRandom.getInstance().nextDouble() <= 0.5) {
+        if (MooreRandom.getInstance().nextDouble() <= 0.5) {
           if (Math.abs(valueX1 - valueX2) > EPS) {
             if (valueX1 < valueX2) {
               y1 = valueX1;
@@ -104,7 +102,7 @@ public class SBXCrossover implements Crossover<DoubleSolution> {
             lowerBound = parent1.getLowerBound(i);
             upperBound = parent1.getUpperBound(i);
 
-            rand = JMetalRandom.getInstance().nextDouble() ;
+            rand = MooreRandom.getInstance().nextDouble() ;
             beta = 1.0 + (2.0 * (y1 - lowerBound) / (y2 - y1));
             alpha = 2.0 - Math.pow(beta, -(distributionIndex + 1.0));
 
@@ -130,7 +128,7 @@ public class SBXCrossover implements Crossover<DoubleSolution> {
             c1 = solutionRepair.repairSolutionVariable(c1, lowerBound, upperBound) ;
             c2 = solutionRepair.repairSolutionVariable(c2, lowerBound, upperBound) ;
 
-            if (JMetalRandom.getInstance().nextDouble() <= 0.5) {
+            if (MooreRandom.getInstance().nextDouble() <= 0.5) {
               offspring.get(0).setVariable(i, c2);
               offspring.get(1).setVariable(i, c1);
             } else {

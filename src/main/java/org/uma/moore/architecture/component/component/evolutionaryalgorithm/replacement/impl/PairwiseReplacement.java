@@ -1,23 +1,22 @@
 package org.uma.moore.architecture.component.component.evolutionaryalgorithm.replacement.impl;
 
+import org.uma.moore.architecture.component.component.evolutionaryalgorithm.replacement.Replacement;
+import org.uma.moore.common.operator.selection.impl.RankingAndCrowdingSelection;
+import org.uma.moore.common.solution.Solution;
+import org.uma.moore.common.util.Message;
+import org.uma.moore.common.util.MooreException;
+import org.uma.moore.common.util.comparator.DominanceComparator;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import org.uma.jmetal.operator.impl.selection.RankingAndCrowdingSelection;
-import org.uma.jmetal.solution.Solution;
-import org.uma.jmetal.util.JMetalException;
-import org.uma.jmetal.util.comparator.DominanceComparator;
-import org.uma.moore.common.util.Message;
-import org.uma.moore.architecture.component.algorithm.impl.GDE3;
-import org.uma.moore.architecture.component.component.evolutionaryalgorithm.replacement.Replacement;
 
 /**
  *  * This class takes two populations of equal size, makes pairwise comparisons of their solutions,
  *  * select the non-dominated ones, and finally applies ranking and crowding to get the desired
  *  * number of solutions.
  *  *
- *  * Used in {@link GDE3}
- *
+ *  *
  * @param <S>
  */
 public class PairwiseReplacement<S extends Solution<?>> extends Replacement<S> {
@@ -47,7 +46,7 @@ public class PairwiseReplacement<S extends Solution<?>> extends Replacement<S> {
       int populationSize = population.size();
 
       if (populationSize != offspringPopulation.size()) {
-        throw new JMetalException("The population size " + populationSize + " must be equal than"
+        throw new MooreException("The population size " + populationSize + " must be equal than"
             + "the offpsring population size " + offspringPopulation.size()) ;
       }
 

@@ -2,7 +2,7 @@ package org.uma.moore.common.observable.impl;
 
 import java.util.Scanner;
 
-import org.uma.jmetal.solution.Solution;
+import org.uma.moore.common.solution.Solution;
 import org.uma.moore.common.util.Message;
 import org.uma.moore.architecture.component.util.ObservableComponent;
 

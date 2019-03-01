@@ -1,8 +1,8 @@
 package org.uma.moore.common.solution.impl;
 
-import org.uma.jmetal.util.pseudorandom.JMetalRandom;
 import org.uma.moore.common.solution.Solution;
 import org.uma.moore.common.util.MooreException;
+import org.uma.moore.common.util.pseudorandom.MooreRandom;
 
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +32,7 @@ public class DoubleSolution extends AbstractSolution<Double> {
     this.upperBounds = upperBounds ;
 
     for (int i = 0 ; i < numberOfVariables; i++) {
-      Double value = JMetalRandom.getInstance().nextDouble(lowerBounds.get(i), upperBounds.get(i)) ;
+      Double value = MooreRandom.getInstance().nextDouble(lowerBounds.get(i), upperBounds.get(i)) ;
       setVariable(i, value) ;
     }
   }

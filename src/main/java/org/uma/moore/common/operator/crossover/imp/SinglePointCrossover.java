@@ -1,12 +1,12 @@
 package org.uma.moore.common.operator.crossover.imp;
 
-import org.uma.jmetal.util.pseudorandom.BoundedRandomGenerator;
-import org.uma.jmetal.util.pseudorandom.JMetalRandom;
-import org.uma.jmetal.util.pseudorandom.RandomGenerator;
 import org.uma.moore.common.operator.crossover.Crossover;
 import org.uma.moore.common.solution.impl.BinarySolution;
 import org.uma.moore.common.solution.util.BinarySet;
 import org.uma.moore.common.util.MooreException;
+import org.uma.moore.common.util.pseudorandom.BoundedRandomGenerator;
+import org.uma.moore.common.util.pseudorandom.MooreRandom;
+import org.uma.moore.common.util.pseudorandom.RandomGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ public class SinglePointCrossover implements Crossover<BinarySolution> {
 
   /** Constructor */
   public SinglePointCrossover(double crossoverProbability) {
-	  this(crossoverProbability, () -> JMetalRandom.getInstance().nextDouble(), (a, b) -> JMetalRandom.getInstance().nextInt(a, b));
+	  this(crossoverProbability, () -> MooreRandom.getInstance().nextDouble(), (a, b) -> MooreRandom.getInstance().nextInt(a, b));
   }
 
   /** Constructor */
